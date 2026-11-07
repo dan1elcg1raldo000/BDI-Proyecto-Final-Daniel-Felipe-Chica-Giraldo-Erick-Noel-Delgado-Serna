@@ -1,0 +1,620 @@
+[
+  {
+    "name": "fuente",
+    "desc": "Identifica la hoja y separa el histórico principal, su auxiliar y las capturas nuevas.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "hoja",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(hoja)",
+        "business": "Nombre único de la hoja o conjunto de captura."
+      },
+      {
+        "name": "archivo_sha256",
+        "type": "TEXT",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(archivo_sha256 IS NULL OR length(archivo_sha256)=64)",
+        "business": "Huella del XLSM; NULL en demo/captura."
+      },
+      {
+        "name": "ambito",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(ambito IN ('PRINCIPAL','AUXILIAR','DEMO'))",
+        "business": "PRINCIPAL alimenta indicadores; AUXILIAR se conserva aparte; DEMO se filtra por clase."
+      }
+    ],
+    "ddl": "CREATE TABLE fuente (\n id INTEGER PRIMARY KEY,\n hoja TEXT NOT NULL UNIQUE,\n archivo_sha256 TEXT CHECK(archivo_sha256 IS NULL OR length(archivo_sha256)=64),\n ambito TEXT NOT NULL CHECK(ambito IN ('PRINCIPAL','AUXILIAR','DEMO'))\n)"
+  },
+  {
+    "name": "maquina",
+    "desc": "Línea de envasado.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "nombre",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 30)",
+        "business": "Etiqueta única del catálogo."
+      },
+      {
+        "name": "activa",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "1",
+        "constraints": "CHECK(activa IN (0,1))",
+        "business": "Indicador operativo 1/0; no borra referencias históricas."
+      }
+    ],
+    "ddl": "CREATE TABLE maquina (\n id INTEGER PRIMARY KEY,\n nombre TEXT NOT NULL UNIQUE CHECK(length(nombre) BETWEEN 1 AND 30),\n activa INTEGER NOT NULL DEFAULT 1 CHECK(activa IN (0,1))\n)"
+  },
+  {
+    "name": "turno",
+    "desc": "Horario del turno. Un turno no identificado permanece NULL.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "nombre",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 40)",
+        "business": "Etiqueta única del catálogo."
+      },
+      {
+        "name": "inicio",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(length(inicio)=5 AND inicio GLOB '[0-2][0-9]:[0-5][0-9]' AND inicio<'24:00')",
+        "business": "Inicio HH:MM."
+      },
+      {
+        "name": "fin",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(length(fin)=5 AND fin GLOB '[0-2][0-9]:[0-5][0-9]' AND fin<'24:00')",
+        "business": "Fin HH:MM, con posible cruce de medianoche."
+      }
+    ],
+    "ddl": "CREATE TABLE turno (\n id INTEGER PRIMARY KEY,\n nombre TEXT NOT NULL UNIQUE CHECK(length(nombre) BETWEEN 1 AND 40),\n inicio TEXT NOT NULL CHECK(length(inicio)=5 AND inicio GLOB '[0-2][0-9]:[0-5][0-9]' AND inicio<'24:00'),\n fin TEXT NOT NULL CHECK(length(fin)=5 AND fin GLOB '[0-2][0-9]:[0-5][0-9]' AND fin<'24:00')\n)"
+  },
+  {
+    "name": "persona",
+    "desc": "Alias HMAC de un texto de persona; no presupone que abreviaturas distintas sean la misma identidad.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "seudonimo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(seudonimo); CHECK(length(seudonimo) BETWEEN 1 AND 30)",
+        "business": "Alias HMAC irreversible sin la clave privada externa."
+      },
+      {
+        "name": "activa",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "1",
+        "constraints": "CHECK(activa IN (0,1))",
+        "business": "Indicador operativo 1/0; no borra referencias históricas."
+      }
+    ],
+    "ddl": "CREATE TABLE persona (\n id INTEGER PRIMARY KEY,\n seudonimo TEXT NOT NULL UNIQUE CHECK(length(seudonimo) BETWEEN 1 AND 30),\n activa INTEGER NOT NULL DEFAULT 1 CHECK(activa IN (0,1))\n)"
+  },
+  {
+    "name": "referencia",
+    "desc": "Nombre de la presentación tal como figura en el catálogo o la fuente.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "nombre",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 120)",
+        "business": "Etiqueta única del catálogo."
+      }
+    ],
+    "ddl": "CREATE TABLE referencia (\n id INTEGER PRIMARY KEY,\n nombre TEXT NOT NULL UNIQUE CHECK(length(nombre) BETWEEN 1 AND 120)\n)"
+  },
+  {
+    "name": "codigo_paro",
+    "desc": "Causa principal; 18 conserva una denominación histórica pendiente de aclaración.",
+    "columns": [
+      {
+        "name": "codigo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK; CHECK(length(codigo)=2 AND codigo GLOB '[0-9][0-9]')",
+        "business": "Código principal con dos dígitos."
+      },
+      {
+        "name": "descripcion",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(length(descripcion) BETWEEN 1 AND 180)",
+        "business": "Descripción única para esa clave de catálogo."
+      }
+    ],
+    "ddl": "CREATE TABLE codigo_paro (\n codigo TEXT PRIMARY KEY NOT NULL CHECK(length(codigo)=2 AND codigo GLOB '[0-9][0-9]'),\n descripcion TEXT NOT NULL CHECK(length(descripcion) BETWEEN 1 AND 180)\n)"
+  },
+  {
+    "name": "subcodigo_paro",
+    "desc": "Identificador local a su código, incluyendo nomenclaturas históricas sin fusionarlas.",
+    "columns": [
+      {
+        "name": "codigo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Código principal con dos dígitos."
+      },
+      {
+        "name": "subcodigo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; CHECK(length(subcodigo) BETWEEN 1 AND 15)",
+        "business": "Identificador local, conservando variantes históricas."
+      },
+      {
+        "name": "descripcion",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(length(descripcion) BETWEEN 1 AND 180)",
+        "business": "Descripción única para esa clave de catálogo."
+      }
+    ],
+    "ddl": "CREATE TABLE subcodigo_paro (\n codigo TEXT NOT NULL REFERENCES codigo_paro(codigo) ON DELETE RESTRICT ON UPDATE CASCADE,\n subcodigo TEXT NOT NULL CHECK(length(subcodigo) BETWEEN 1 AND 15),\n descripcion TEXT NOT NULL CHECK(length(descripcion) BETWEEN 1 AND 180),\n PRIMARY KEY(codigo,subcodigo)\n)"
+  },
+  {
+    "name": "registro_produccion",
+    "desc": "Fila de producción o detalle con sus valores originales, sin propagar cantidades.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "fecha",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(length(fecha)=10 AND fecha GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' AND date(fecha,'+0 days') IS NOT NULL AND date(fecha,'+0 days')=fecha)",
+        "business": "Fecha registrada en la fuente, ISO AAAA-MM-DD."
+      },
+      {
+        "name": "maquina_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "FK maquina.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Línea a la que corresponde la fila."
+      },
+      {
+        "name": "turno_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "FK turno.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Turno identificado; NULL significa desconocido o no aplicable según staging."
+      },
+      {
+        "name": "operario_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "FK persona.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Alias de la persona operadora; NULL cuando no se registró."
+      },
+      {
+        "name": "referencia_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "FK referencia.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Presentación del producto; NULL cuando falta."
+      },
+      {
+        "name": "minutos_base",
+        "type": "REAL",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(minutos_base IS NULL OR minutos_base BETWEEN 0 AND 1440)",
+        "business": "Horas trabajadas del Excel multiplicadas por 60, sin rellenar faltantes. Puede ser 0 en histórico."
+      },
+      {
+        "name": "meta_pacas_hora",
+        "type": "REAL",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(meta_pacas_hora IS NULL OR meta_pacas_hora>0)",
+        "business": "Meta de volumen opcional para captura nueva. La fuente histórica no la contiene."
+      },
+      {
+        "name": "pacas_reales",
+        "type": "REAL",
+        "nullable": true,
+        "default": "0",
+        "constraints": "CHECK(pacas_reales IS NULL OR pacas_reales>=0)",
+        "business": "Pacas de la fila. NULL se conserva como desconocido, sin copiar datos del registro anterior."
+      },
+      {
+        "name": "origen",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(origen); CHECK(length(origen) BETWEEN 1 AND 160)",
+        "business": "SHA del archivo, fuente y fila; clave idempotente."
+      },
+      {
+        "name": "clase",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "'REAL'",
+        "constraints": "CHECK(clase IN ('REAL','DEMO'))",
+        "business": "REAL para datos del libro o capturas; DEMO para la demostración sintética."
+      },
+      {
+        "name": "creado_en",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP",
+        "constraints": "Sin restricción adicional",
+        "business": "Sello UTC de inserción."
+      },
+      {
+        "name": "fuente_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "4",
+        "constraints": "FK fuente.id; DELETE RESTRICT; UPDATE CASCADE; UNIQUE(fuente_id,fila_fuente)",
+        "business": "Hoja/conjunto de origen."
+      },
+      {
+        "name": "fila_fuente",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(fuente_id,fila_fuente); CHECK(fila_fuente IS NULL OR fila_fuente>0)",
+        "business": "Número de fila en la hoja Excel."
+      },
+      {
+        "name": "estado",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "'CAPTURA'",
+        "constraints": "CHECK(estado IN ('CAPTURA','HISTORICO'))",
+        "business": "HISTORICO conserva anomalías; CAPTURA exige campos y presupuesto de tiempos válidos."
+      },
+      {
+        "name": "minutos_sin_trabajar",
+        "type": "REAL",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(minutos_sin_trabajar IS NULL OR minutos_sin_trabajar>=0)",
+        "business": "Horas no trabajadas originales multiplicadas por 60."
+      }
+    ],
+    "ddl": "CREATE TABLE registro_produccion (\n id INTEGER PRIMARY KEY,\n fecha TEXT NOT NULL CHECK(length(fecha)=10 AND fecha GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' AND date(fecha,'+0 days') IS NOT NULL AND date(fecha,'+0 days')=fecha),\n maquina_id INTEGER NOT NULL REFERENCES maquina(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n turno_id INTEGER REFERENCES turno(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n operario_id INTEGER REFERENCES persona(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n referencia_id INTEGER REFERENCES referencia(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n minutos_base REAL CHECK(minutos_base IS NULL OR minutos_base BETWEEN 0 AND 1440),\n meta_pacas_hora REAL CHECK(meta_pacas_hora IS NULL OR meta_pacas_hora>0),\n pacas_reales REAL DEFAULT 0 CHECK(pacas_reales IS NULL OR pacas_reales>=0),\n origen TEXT NOT NULL UNIQUE CHECK(length(origen) BETWEEN 1 AND 160),\n clase TEXT NOT NULL DEFAULT 'REAL' CHECK(clase IN ('REAL','DEMO')),\n creado_en TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,\n fuente_id INTEGER NOT NULL DEFAULT 4 REFERENCES fuente(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n fila_fuente INTEGER CHECK(fila_fuente IS NULL OR fila_fuente>0),\n estado TEXT NOT NULL DEFAULT 'CAPTURA' CHECK(estado IN ('CAPTURA','HISTORICO')),\n minutos_sin_trabajar REAL CHECK(minutos_sin_trabajar IS NULL OR minutos_sin_trabajar>=0),\n UNIQUE(fuente_id,fila_fuente),\n CHECK(estado='HISTORICO' OR (minutos_base>0 AND minutos_base IS NOT NULL AND pacas_reales IS NOT NULL AND turno_id IS NOT NULL AND referencia_id IS NOT NULL))\n)"
+  },
+  {
+    "name": "paro",
+    "desc": "Tiempo positivo por causa y subcausa de una fila. No equivale a un evento con inicio y fin.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "registro_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Fila de producción de la que depende el detalle."
+      },
+      {
+        "name": "codigo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "FK subcodigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Código principal con dos dígitos."
+      },
+      {
+        "name": "subcodigo",
+        "type": "TEXT",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "FK subcodigo_paro.subcodigo; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Identificador local, conservando variantes históricas."
+      },
+      {
+        "name": "minutos",
+        "type": "REAL",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(minutos>0)",
+        "business": "Duración en minutos, admite el decimal que aparece en la fuente."
+      },
+      {
+        "name": "observacion",
+        "type": "TEXT",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(observacion IS NULL OR length(observacion)<=500)",
+        "business": "Aclaración de nuevas capturas. Las observaciones originales se reservan por privacidad."
+      },
+      {
+        "name": "agente",
+        "type": "TEXT",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(agente IS NULL OR length(agente)<=60)",
+        "business": "Grupo que interviene en el ajuste; independiente de si se conoce una persona."
+      }
+    ],
+    "ddl": "CREATE TABLE paro (\n id INTEGER PRIMARY KEY,\n registro_id INTEGER NOT NULL REFERENCES registro_produccion(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n codigo TEXT NOT NULL REFERENCES codigo_paro(codigo) ON DELETE RESTRICT ON UPDATE CASCADE,\n subcodigo TEXT,\n minutos REAL NOT NULL CHECK(minutos>0),\n observacion TEXT CHECK(observacion IS NULL OR length(observacion)<=500),\n agente TEXT CHECK(agente IS NULL OR length(agente)<=60),\n FOREIGN KEY(codigo,subcodigo) REFERENCES subcodigo_paro(codigo,subcodigo) ON DELETE RESTRICT ON UPDATE CASCADE\n)"
+  },
+  {
+    "name": "intervencion",
+    "desc": "Persona y rol asociados al paro de ajuste operativo cuando la fuente registra personal.",
+    "columns": [
+      {
+        "name": "paro_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; FK paro.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Tiempo de paro al que corresponde una participación."
+      },
+      {
+        "name": "persona_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; FK persona.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Persona participante mediante alias."
+      },
+      {
+        "name": "rol",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(rol IN ('MANTENIMIENTO','OPERACION','CALIDAD','OTRO'))",
+        "business": "Función de esa persona en esa participación."
+      }
+    ],
+    "ddl": "CREATE TABLE intervencion (\n paro_id INTEGER NOT NULL REFERENCES paro(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n persona_id INTEGER NOT NULL REFERENCES persona(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n rol TEXT NOT NULL CHECK(rol IN ('MANTENIMIENTO','OPERACION','CALIDAD','OTRO')),\n PRIMARY KEY(paro_id,persona_id)\n)"
+  },
+  {
+    "name": "produccion_hora",
+    "desc": "Detalle horario para capturas nuevas y demostración; no se inventa para el histórico.",
+    "columns": [
+      {
+        "name": "registro_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Fila de producción de la que depende el detalle."
+      },
+      {
+        "name": "hora_relativa",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; CHECK(typeof(hora_relativa)='integer' AND hora_relativa BETWEEN 0 AND 23)",
+        "business": "Bloque horario desde el comienzo del segmento de una captura nueva."
+      },
+      {
+        "name": "pacas",
+        "type": "REAL",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(pacas>=0)",
+        "business": "Cantidad del bloque horario."
+      }
+    ],
+    "ddl": "CREATE TABLE produccion_hora (\n registro_id INTEGER NOT NULL REFERENCES registro_produccion(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n hora_relativa INTEGER NOT NULL CHECK(typeof(hora_relativa)='integer' AND hora_relativa BETWEEN 0 AND 23),\n pacas REAL NOT NULL CHECK(pacas>=0),\n PRIMARY KEY(registro_id,hora_relativa)\n)"
+  },
+  {
+    "name": "staging_pdf",
+    "desc": "Estructura de la extracción PDF anterior. No interviene en los indicadores actuales.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "pagina",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(pagina,linea); CHECK(pagina BETWEEN 1 AND 3213)",
+        "business": "Página de la exportación PDF, para la extracción previa."
+      },
+      {
+        "name": "linea",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "UNIQUE(pagina,linea); CHECK(linea>0)",
+        "business": "Línea de texto PDF extraída."
+      },
+      {
+        "name": "fecha",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "Sin restricción adicional",
+        "business": "Fecha registrada en la fuente, ISO AAAA-MM-DD."
+      },
+      {
+        "name": "maquina",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "Sin restricción adicional",
+        "business": "Etiqueta recuperada en la extracción previa."
+      },
+      {
+        "name": "estado",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "'PENDIENTE_EXCEL'",
+        "constraints": "CHECK(estado IN ('PENDIENTE_EXCEL','REVISADO'))",
+        "business": "Estado de la extracción PDF anterior: PENDIENTE_EXCEL o REVISADO. Esta tabla no alimenta los indicadores del XLSM."
+      }
+    ],
+    "ddl": "CREATE TABLE staging_pdf (\n id INTEGER PRIMARY KEY,\n pagina INTEGER NOT NULL CHECK(pagina BETWEEN 1 AND 3213),\n linea INTEGER NOT NULL CHECK(linea>0),\n fecha TEXT NOT NULL,\n maquina TEXT NOT NULL,\n estado TEXT NOT NULL DEFAULT 'PENDIENTE_EXCEL' CHECK(estado IN ('PENDIENTE_EXCEL','REVISADO')),\n UNIQUE(pagina,linea)\n)"
+  },
+  {
+    "name": "staging_xlsm",
+    "desc": "Fuente seudonimizada íntegra por hoja/fila, usada para conciliación y trazabilidad.",
+    "columns": [
+      {
+        "name": "fuente_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Hoja/conjunto de origen."
+      },
+      {
+        "name": "fila",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK compuesta; CHECK(fila>0)",
+        "business": "Fila de la hoja que identifica el origen."
+      },
+      {
+        "name": "contenido_json",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "CHECK(json_valid(contenido_json))",
+        "business": "Contenido seudonimizado de la fila y marcador de repetición, con nulos y ceros originales."
+      }
+    ],
+    "ddl": "CREATE TABLE staging_xlsm (\n fuente_id INTEGER NOT NULL REFERENCES fuente(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n fila INTEGER NOT NULL CHECK(fila>0),\n contenido_json TEXT NOT NULL CHECK(json_valid(contenido_json)),\n PRIMARY KEY(fuente_id,fila)\n)"
+  },
+  {
+    "name": "incidencia",
+    "desc": "Observación de calidad vinculada a su fila de origen.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "PK",
+        "business": "Identificador interno."
+      },
+      {
+        "name": "registro_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "Sin DEFAULT",
+        "constraints": "FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Fila de producción de la que depende el detalle."
+      },
+      {
+        "name": "fuente_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "FK staging_xlsm.fuente_id; DELETE RESTRICT; UPDATE CASCADE; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Hoja/conjunto de origen."
+      },
+      {
+        "name": "fila",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "FK staging_xlsm.fila; DELETE RESTRICT; UPDATE CASCADE",
+        "business": "Fila de la hoja que identifica el origen."
+      },
+      {
+        "name": "tipo",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "Sin restricción adicional",
+        "business": "Clasificación del hallazgo de calidad."
+      },
+      {
+        "name": "detalle",
+        "type": "TEXT",
+        "nullable": false,
+        "default": "Sin DEFAULT",
+        "constraints": "Sin restricción adicional",
+        "business": "Explicación sin datos personales."
+      }
+    ],
+    "ddl": "CREATE TABLE incidencia (\n id INTEGER PRIMARY KEY,\n registro_id INTEGER REFERENCES registro_produccion(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n fuente_id INTEGER NOT NULL REFERENCES fuente(id) ON DELETE RESTRICT ON UPDATE CASCADE,\n fila INTEGER NOT NULL,\n tipo TEXT NOT NULL,\n detalle TEXT NOT NULL,\n FOREIGN KEY(fuente_id,fila) REFERENCES staging_xlsm(fuente_id,fila) ON DELETE RESTRICT ON UPDATE CASCADE\n)"
+  }
+]

@@ -1,0 +1,101 @@
+erDiagram
+    FUENTE ||--o{ REGISTRO_PRODUCCION : origina
+    FUENTE ||--o{ STAGING_XLSM : conserva
+    MAQUINA ||--o{ REGISTRO_PRODUCCION : opera
+    TURNO o|--o{ REGISTRO_PRODUCCION : organiza
+    PERSONA o|--o{ REGISTRO_PRODUCCION : registra
+    REFERENCIA o|--o{ REGISTRO_PRODUCCION : envasa
+    REGISTRO_PRODUCCION ||--o{ PARO : detalla
+    REGISTRO_PRODUCCION ||--o{ PRODUCCION_HORA : registra
+    CODIGO_PARO ||--o{ SUBCODIGO_PARO : contiene
+    CODIGO_PARO ||--o{ PARO : clasifica
+    SUBCODIGO_PARO o|--o{ PARO : precisa
+    PARO ||--o{ INTERVENCION : atiende
+    PERSONA ||--o{ INTERVENCION : participa
+    STAGING_XLSM ||--o{ INCIDENCIA : documenta
+    REGISTRO_PRODUCCION o|--o{ INCIDENCIA : observa
+    FUENTE {
+        INTEGER id PK
+        TEXT hoja
+        TEXT archivo_sha256
+        TEXT ambito
+    }
+    MAQUINA {
+        INTEGER id PK
+        TEXT nombre
+        INTEGER activa
+    }
+    TURNO {
+        INTEGER id PK
+        TEXT nombre
+        TEXT inicio
+        TEXT fin
+    }
+    PERSONA {
+        INTEGER id PK
+        TEXT seudonimo
+        INTEGER activa
+    }
+    REFERENCIA {
+        INTEGER id PK
+        TEXT nombre
+    }
+    CODIGO_PARO {
+        TEXT codigo PK
+        TEXT descripcion
+    }
+    SUBCODIGO_PARO {
+        TEXT codigo PK
+        TEXT subcodigo PK
+        TEXT descripcion
+    }
+    REGISTRO_PRODUCCION {
+        INTEGER id PK
+        TEXT fecha
+        INTEGER maquina_id
+        INTEGER turno_id
+        INTEGER operario_id
+        INTEGER referencia_id
+        REAL minutos_base
+        REAL meta_pacas_hora
+        REAL pacas_reales
+        TEXT origen
+        TEXT clase
+        TEXT creado_en
+        INTEGER fuente_id
+        INTEGER fila_fuente
+        TEXT estado
+        REAL minutos_sin_trabajar
+    }
+    PARO {
+        INTEGER id PK
+        INTEGER registro_id
+        TEXT codigo
+        TEXT subcodigo
+        REAL minutos
+        TEXT observacion
+        TEXT agente
+    }
+    INTERVENCION {
+        INTEGER paro_id PK
+        INTEGER persona_id PK
+        TEXT rol
+    }
+    PRODUCCION_HORA {
+        INTEGER registro_id PK
+        INTEGER hora_relativa PK
+        REAL pacas
+    }
+    STAGING_XLSM {
+        INTEGER fuente_id PK
+        INTEGER fila PK
+        TEXT contenido_json
+    }
+    INCIDENCIA {
+        INTEGER id PK
+        INTEGER registro_id
+        INTEGER fuente_id
+        INTEGER fila
+        TEXT tipo
+        TEXT detalle
+    }

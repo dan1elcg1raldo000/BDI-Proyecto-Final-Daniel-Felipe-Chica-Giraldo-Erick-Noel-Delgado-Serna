@@ -1,0 +1,19 @@
+codigo,subcodigo,subcausa,minutos,pct_dentro_codigo
+01,1.2.B,Ajuste de sensor,240.0,73.8462
+01,SIN_SUBCODIGO,Sin especificar,75.0,23.0769
+01,1.1.B,Motor,10.0,3.0769
+03,3.3,Falla en la red neumática o el compresor,55.0,55.0
+03,SIN_SUBCODIGO,Sin especificar,40.0,40.0
+03,3.2,Fallo en la red pública,5.0,5.0
+05,5.2,"Sistema de dosificación de pintura, frontal posterior",2923.0,26.3167
+05,5.5,Transfer y pisador de tapa,2162.0,19.4652
+05,5.8,Banda de sujeción y roscadores,1586.0,14.2793
+05,5.3,Banda transportadora de entrada,997.0,8.9763
+05,5.7,Video Jet,904.0,8.139
+05,5.11,Lavado de boquilla,891.0,8.022
+05,5.10,Purga de color,733.0,6.5994
+05,5.9,Sistema de etiquetado,310.0,2.791
+05,5.1,Sistema alimentador de envases,206.0,1.8547
+05,5.6,Sistema alimentador de tapa y tobogan,190.0,1.7106
+05,5.4,Banda transportadora de salida,138.0,1.2425
+05,SIN_SUBCODIGO,Sin especificar,67.0,0.6032

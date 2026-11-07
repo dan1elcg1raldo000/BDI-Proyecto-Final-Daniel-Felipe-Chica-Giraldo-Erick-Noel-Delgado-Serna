@@ -1,0 +1,575 @@
+{
+  "TD_prodMaq": [
+    [
+      "Suma de % Productividad",
+      null,
+      null
+    ],
+    [
+      null,
+      "Vinilos_2",
+      "Total general"
+    ],
+    [
+      "enero",
+      0.6793456032719836,
+      0.6793456032719836
+    ],
+    [
+      "febrero",
+      0.5757188498402557,
+      0.5757188498402557
+    ],
+    [
+      "marzo",
+      0.5929936305732484,
+      0.5929936305732484
+    ],
+    [
+      "abril",
+      0.44391534391534393,
+      0.44391534391534393
+    ],
+    [
+      "mayo",
+      0.4863979848866499,
+      0.4863979848866499
+    ],
+    [
+      "junio",
+      0.4572052401746725,
+      0.4572052401746725
+    ],
+    [
+      "julio",
+      0.7622285174693106,
+      0.7622285174693106
+    ],
+    [
+      "agosto",
+      0.7487734487734488,
+      0.7487734487734488
+    ],
+    [
+      "septiembre",
+      0.7015831134564643,
+      0.7015831134564643
+    ],
+    [
+      "octubre",
+      0.7221043324491601,
+      0.7221043324491601
+    ],
+    [
+      "noviembre",
+      0.6224852071005917,
+      0.6224852071005917
+    ],
+    [
+      "diciembre",
+      0.5859093730602111,
+      0.5859093730602111
+    ],
+    [
+      "Total general",
+      0.6247217188713436,
+      0.6247217188713435
+    ]
+  ],
+  "TD_prodAño": [
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Suma de % Productividad",
+      "Etiquetas de columna"
+    ],
+    [
+      null,
+      null,
+      "Etiquetas de fila",
+      "2024"
+    ],
+    [
+      null,
+      null,
+      "enero",
+      0.6793456032719836
+    ],
+    [
+      null,
+      null,
+      "febrero",
+      0.5757188498402557
+    ],
+    [
+      null,
+      null,
+      "marzo",
+      0.5929936305732484
+    ],
+    [
+      null,
+      null,
+      "abril",
+      0.44391534391534393
+    ],
+    [
+      null,
+      null,
+      "mayo",
+      0.4863979848866499
+    ],
+    [
+      null,
+      null,
+      "junio",
+      0.4572052401746725
+    ],
+    [
+      null,
+      null,
+      "julio",
+      0.7622285174693106
+    ],
+    [
+      null,
+      null,
+      "agosto",
+      0.7487734487734488
+    ],
+    [
+      null,
+      null,
+      "septiembre",
+      0.7015831134564643
+    ],
+    [
+      null,
+      null,
+      "octubre",
+      0.7221043324491601
+    ],
+    [
+      null,
+      null,
+      "noviembre",
+      0.6224852071005917
+    ],
+    [
+      null,
+      null,
+      "diciembre",
+      0.5859093730602111
+    ]
+  ],
+  "TD_prodCodigo": [
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Valores",
+      null
+    ],
+    [
+      null,
+      null,
+      "[01] Falla del sistema electromecánico y/o de control",
+      0.006342221071705927
+    ],
+    [
+      null,
+      null,
+      "[02] Espera de soporte de mantenimiento",
+      0.000388299249288118
+    ],
+    [
+      null,
+      null,
+      "[03] Novedad en los sistemas de potencia (Aire, energía, vapor)",
+      0.00021572180516006556
+    ],
+    [
+      null,
+      null,
+      "[04] Mantenimiento preventivo",
+      0.0013892484252308224
+    ],
+    [
+      null,
+      null,
+      "[05] Ajuste operativo",
+      0.059936146345672625
+    ],
+    [
+      null,
+      null,
+      "[06] Limpieza por derrame operativo",
+      0.07039433945983262
+    ],
+    [
+      null,
+      null,
+      "[07] Alistamiento de máquina / Cambio de referencia",
+      0.04789024074553457
+    ],
+    [
+      null,
+      null,
+      "[08] Capacitación / Reunión",
+      0.005254983173699198
+    ],
+    [
+      null,
+      null,
+      "[09] Falta de operario",
+      0.01879368366554491
+    ],
+    [
+      null,
+      null,
+      "[10] Paro por ventaja/evacuación",
+      0.00983691431529899
+    ],
+    [
+      null,
+      null,
+      "[11] Reproceso",
+      0.0003020105272240918
+    ],
+    [
+      null,
+      null,
+      "[12] Materia prima defectuosa",
+      0.011597204245405127
+    ],
+    [
+      null,
+      null,
+      "[13] En espera por el aval del laboratorio de microbiología",
+      0.0004314436103201311
+    ],
+    [
+      null,
+      null,
+      "[14] Falta de materia prima",
+      0.012589524549141426
+    ],
+    [
+      null,
+      null,
+      "[15] Cambio de insumos (Roscadores, O'ring, Etiquetas)",
+      0.002286651134696695
+    ],
+    [
+      null,
+      null,
+      "[16] Alimentación y aseo de la zona de trabajo y la máquina",
+      0.1188195702821636
+    ],
+    [
+      null,
+      null,
+      "[17] Pausa activa",
+      0.008810078522737092
+    ],
+    [
+      null,
+      null,
+      "[18] Desinfeccion",
+      0
+    ],
+    [
+      null,
+      null,
+      "Suma de % Productividad",
+      0.6247217188713436
+    ]
+  ],
+  "TD_fallaMecanica": [
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Etiquetas de fila",
+      "Suma de Codigo 1 en horas"
+    ],
+    [
+      null,
+      null,
+      "1.2 SISTEMA DE DOSIFICACIÓN",
+      0.08163265306122448
+    ],
+    [
+      null,
+      null,
+      "1.2.B Ajuste de sensor",
+      0.46258503401360546
+    ],
+    [
+      null,
+      null,
+      "1.2.C Cambio de Valvula",
+      0.2857142857142857
+    ],
+    [
+      null,
+      null,
+      "1.4.B Pisador de tapa",
+      0.08163265306122448
+    ],
+    [
+      null,
+      null,
+      "1.5 SISTEMA DE ALIMENTACIÓN DE TAPA",
+      0.013605442176870748
+    ],
+    [
+      null,
+      null,
+      "1.7.B Roscadores",
+      0.05442176870748299
+    ],
+    [
+      null,
+      null,
+      "1.8 SISTEMA ETIQUETADORA",
+      0.02040816326530612
+    ],
+    [
+      null,
+      null,
+      "(en blanco)",
+      0
+    ],
+    [
+      null,
+      null,
+      "Total general",
+      1
+    ]
+  ],
+  "TD_ajusteOperativo": [
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Suma de Codigo 5 en horas",
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      "Operarios",
+      "Personal_de_mantenimiento",
+      "Total general",
+      null
+    ],
+    [
+      null,
+      null,
+      "5.1 Sistema alimentador de envases",
+      0.004319032536711777,
+      0.02879355024474518,
+      0.033112582781456956,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.10 Purga de color",
+      0.010077742585660812,
+      0,
+      0.010077742585660812,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.2 Sistema de dosificación de pintura, frontal posterior",
+      0.2971494385257703,
+      0.2107687877915347,
+      0.507918226317305,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.3 Banda transportadora de entrada",
+      0,
+      0.006478548805067665,
+      0.006478548805067665,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.4 Banda transportadora de salida",
+      0,
+      0.004319032536711777,
+      0.004319032536711777,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.5 Transfer y pisador de tapa",
+      0.058882810250503896,
+      0.028361646991073998,
+      0.0872444572415779,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.6 Sistema alimentador de tapa y tobogan",
+      0.018139936654189462,
+      0.009357903829542182,
+      0.027497840483731648,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.7 Video Jet",
+      0.09357903829542182,
+      0.006478548805067665,
+      0.10005758710048948,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.8 Banda de sujeción y roscadores",
+      0.013676936366253958,
+      0.02735387273250792,
+      0.041030809098761875,
+      null
+    ],
+    [
+      null,
+      null,
+      "5.9 Sistema de etiquetado",
+      0.11589403973509932,
+      0.04981284192340916,
+      0.16570688165850847,
+      null
+    ],
+    [
+      null,
+      null,
+      "Sin especificar",
+      0.016556291390728478,
+      0,
+      0.016556291390728478,
+      null
+    ],
+    [
+      null,
+      null,
+      "Total general",
+      0.6282752663403399,
+      0.37172473365966024,
+      1,
+      null
+    ]
+  ],
+  "TD_novPotencia": [
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Etiquetas de fila",
+      "Suma de Codigo 3 en horas"
+    ],
+    [
+      null,
+      null,
+      "3.3 Falla en la red neumática o el compresor",
+      0.2
+    ],
+    [
+      null,
+      null,
+      "(en blanco)",
+      0
+    ],
+    [
+      null,
+      null,
+      "3.2 Fallo en la red pública",
+      0.8
+    ],
+    [
+      null,
+      null,
+      "Total general",
+      1
+    ]
+  ]
+}

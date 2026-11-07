@@ -1,0 +1,19 @@
+codigo,descripcion,minutos,pct_del_paro,pct_base
+16,Alimentación y aseo de la zona de trabajo y la máquina,15520.0,30.7692,9.1823
+06,Limpieza por derrame operativo,13682.0,27.1253,8.0949
+05,Ajuste operativo,11107.0,22.0202,6.5714
+07,Alistamiento de máquina / Cambio de referencia,2770.0,5.4917,1.6389
+17,Pausa activa,1182.0,2.3434,0.6993
+14,Falta de materia prima,1079.0,2.1392,0.6384
+09,Falta de operario,927.0,1.8378,0.5485
+15,"Cambio de insumos (Roscadores, O'ring, Etiquetas)",911.0,1.8061,0.539
+10,Paro por ventaja/evacuación,885.0,1.7546,0.5236
+08,Capacitación / Reunión,645.0,1.2787,0.3816
+18,Código 18 histórico: denominación contradictoria entre catálogos,412.0,0.8168,0.2438
+02,Espera de soporte de mantenimiento,334.0,0.6622,0.1976
+01,Falla del sistema electromecánico y/o de control,325.0,0.6443,0.1923
+12,Materia prima defectuosa,225.0,0.4461,0.1331
+04,Mantenimiento preventivo,210.0,0.4163,0.1242
+11,Reproceso,123.0,0.2439,0.0728
+03,"Novedad en los sistemas de potencia (Aire, energía, vapor)",100.0,0.1983,0.0592
+13,En espera por el aval del laboratorio de microbiología,3.0,0.0059,0.0018

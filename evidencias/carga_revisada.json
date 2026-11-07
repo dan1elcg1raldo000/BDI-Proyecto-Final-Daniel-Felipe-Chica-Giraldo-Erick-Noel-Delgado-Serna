@@ -1,0 +1,14 @@
+[
+  {
+    "prueba": "FK inválida revierte la carga completa",
+    "resultado": "OK"
+  },
+  {
+    "prueba": "Carga válida y conciliación de pacas/minutos",
+    "resultado": "OK"
+  },
+  {
+    "prueba": "Reimportación rechazada por origen UNIQUE",
+    "resultado": "OK"
+  }
+]

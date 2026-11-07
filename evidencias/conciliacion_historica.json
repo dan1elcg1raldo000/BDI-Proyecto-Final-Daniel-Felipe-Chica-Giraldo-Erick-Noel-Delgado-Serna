@@ -1,0 +1,810 @@
+{
+  "estado": "OK",
+  "fuente_sha256": "c7d7eabbd55844757c2be07bd61efcee9eb5e0b03aaf9fd76b798737a92d5c55",
+  "filas_staging": 9460,
+  "filas_normalizadas": 9459,
+  "filas_sin_fecha_solo_staging": 1,
+  "numero_controles": 118,
+  "controles": [
+    {
+      "control": "Comparación fila a fila JSONL/staging y cantidades normalizadas",
+      "filas": 9460,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos filas en staging",
+      "excel": 8208,
+      "base": 8208,
+      "diferencia": 0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos pacas",
+      "excel": 378778.0,
+      "base": 378778.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos_base",
+      "excel": 2283801.0,
+      "base": 2283801.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos_paro",
+      "excel": 506979.1,
+      "base": 506979.1,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 05",
+      "excel": 109159.6,
+      "base": 109159.6,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 06",
+      "excel": 92814,
+      "base": 92814.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 07",
+      "excel": 37248.5,
+      "base": 37248.5,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 08",
+      "excel": 4088,
+      "base": 4088.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 15",
+      "excel": 9950,
+      "base": 9950.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 16",
+      "excel": 120153,
+      "base": 120153.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 17",
+      "excel": 43106,
+      "base": 43106.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 11",
+      "excel": 543,
+      "base": 543.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 09",
+      "excel": 10928,
+      "base": 10928.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 10",
+      "excel": 21383,
+      "base": 21383.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 14",
+      "excel": 15208,
+      "base": 15208.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 02",
+      "excel": 1955,
+      "base": 1955.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 12",
+      "excel": 13621,
+      "base": 13621.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 18",
+      "excel": 502,
+      "base": 502.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 01",
+      "excel": 19434,
+      "base": 19434.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 13",
+      "excel": 1148,
+      "base": 1148.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 04",
+      "excel": 510,
+      "base": 510.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base De Datos minutos código 03",
+      "excel": 5228,
+      "base": 5228.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos filas en staging",
+      "excel": 1252,
+      "base": 1252,
+      "diferencia": 0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos pacas",
+      "excel": 0.0,
+      "base": 0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos minutos_base",
+      "excel": 0.0,
+      "base": 0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos minutos_paro",
+      "excel": 37211.0,
+      "base": 37211.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos minutos código 05",
+      "excel": 32731,
+      "base": 32731.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos minutos código 01",
+      "excel": 3542,
+      "base": 3542.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Base de datos de Sub codigos minutos código 03",
+      "excel": 938,
+      "base": 938.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-01",
+      "excel": 0.6793456032719836,
+      "base": 0.6793456032719837,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-02",
+      "excel": 0.5757188498402557,
+      "base": 0.5757188498402556,
+      "diferencia": -1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-03",
+      "excel": 0.5929936305732484,
+      "base": 0.5929936305732484,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-04",
+      "excel": 0.44391534391534393,
+      "base": 0.44391534391534393,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-05",
+      "excel": 0.4863979848866499,
+      "base": 0.48639798488664987,
+      "diferencia": -5.551115123125783e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-06",
+      "excel": 0.4572052401746725,
+      "base": 0.45720524017467246,
+      "diferencia": -5.551115123125783e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-07",
+      "excel": 0.7622285174693106,
+      "base": 0.7622285174693108,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-08",
+      "excel": 0.7487734487734488,
+      "base": 0.7487734487734489,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-09",
+      "excel": 0.7015831134564643,
+      "base": 0.7015831134564644,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-10",
+      "excel": 0.7221043324491601,
+      "base": 0.7221043324491601,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-11",
+      "excel": 0.6224852071005917,
+      "base": 0.6224852071005917,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodMaq 2024-12",
+      "excel": 0.5859093730602111,
+      "base": 0.5859093730602111,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-01",
+      "excel": 0.6793456032719836,
+      "base": 0.6793456032719837,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-02",
+      "excel": 0.5757188498402557,
+      "base": 0.5757188498402556,
+      "diferencia": -1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-03",
+      "excel": 0.5929936305732484,
+      "base": 0.5929936305732484,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-04",
+      "excel": 0.44391534391534393,
+      "base": 0.44391534391534393,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-05",
+      "excel": 0.4863979848866499,
+      "base": 0.48639798488664987,
+      "diferencia": -5.551115123125783e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-06",
+      "excel": 0.4572052401746725,
+      "base": 0.45720524017467246,
+      "diferencia": -5.551115123125783e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-07",
+      "excel": 0.7622285174693106,
+      "base": 0.7622285174693108,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-08",
+      "excel": 0.7487734487734488,
+      "base": 0.7487734487734489,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-09",
+      "excel": 0.7015831134564643,
+      "base": 0.7015831134564644,
+      "diferencia": 1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-10",
+      "excel": 0.7221043324491601,
+      "base": 0.7221043324491601,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-11",
+      "excel": 0.6224852071005917,
+      "base": 0.6224852071005917,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodAño 2024-12",
+      "excel": 0.5859093730602111,
+      "base": 0.5859093730602111,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 01",
+      "excel": 0.006342221071705927,
+      "base": 0.006342221071705928,
+      "diferencia": 8.673617379884035e-19,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 02",
+      "excel": 0.000388299249288118,
+      "base": 0.000388299249288118,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 03",
+      "excel": 0.00021572180516006556,
+      "base": 0.0002157218051600656,
+      "diferencia": 2.710505431213761e-20,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 04",
+      "excel": 0.0013892484252308224,
+      "base": 0.0013892484252308224,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 05",
+      "excel": 0.059936146345672625,
+      "base": 0.05993614634567262,
+      "diferencia": -6.938893903907228e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 06",
+      "excel": 0.07039433945983262,
+      "base": 0.0703943394598326,
+      "diferencia": -1.3877787807814457e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 07",
+      "excel": 0.04789024074553457,
+      "base": 0.04789024074553456,
+      "diferencia": -1.3877787807814457e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 08",
+      "excel": 0.005254983173699198,
+      "base": 0.005254983173699198,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 09",
+      "excel": 0.01879368366554491,
+      "base": 0.018793683665544913,
+      "diferencia": 3.469446951953614e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 10",
+      "excel": 0.00983691431529899,
+      "base": 0.00983691431529899,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 11",
+      "excel": 0.0003020105272240918,
+      "base": 0.0003020105272240918,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 12",
+      "excel": 0.011597204245405127,
+      "base": 0.011597204245405125,
+      "diferencia": -1.734723475976807e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 13",
+      "excel": 0.0004314436103201311,
+      "base": 0.0004314436103201312,
+      "diferencia": 5.421010862427522e-20,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 14",
+      "excel": 0.012589524549141426,
+      "base": 0.012589524549141428,
+      "diferencia": 1.734723475976807e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 15",
+      "excel": 0.002286651134696695,
+      "base": 0.002286651134696695,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 16",
+      "excel": 0.1188195702821636,
+      "base": 0.11881957028216412,
+      "diferencia": 5.273559366969494e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 17",
+      "excel": 0.008810078522737092,
+      "base": 0.008810078522737078,
+      "diferencia": -1.3877787807814457e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo 18",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_prodCodigo productividad",
+      "excel": 0.6247217188713436,
+      "base": 0.6247217188713435,
+      "diferencia": -1.1102230246251565e-16,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.2",
+      "excel": 0.08163265306122448,
+      "base": 0.08163265306122448,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.2.B",
+      "excel": 0.46258503401360546,
+      "base": 0.46258503401360546,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.2.C",
+      "excel": 0.2857142857142857,
+      "base": 0.2857142857142857,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.4.B",
+      "excel": 0.08163265306122448,
+      "base": 0.08163265306122448,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.5",
+      "excel": 0.013605442176870748,
+      "base": 0.013605442176870748,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.7.B",
+      "excel": 0.05442176870748299,
+      "base": 0.05442176870748299,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica 1.8",
+      "excel": 0.02040816326530612,
+      "base": 0.02040816326530612,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica sin subcódigo",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_fallaMecanica total",
+      "excel": 1,
+      "base": 1,
+      "diferencia": 0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_novPotencia 3.3",
+      "excel": 0.2,
+      "base": 0.2,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_novPotencia sin subcódigo",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_novPotencia 3.2",
+      "excel": 0.8,
+      "base": 0.8,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_novPotencia total",
+      "excel": 1,
+      "base": 1,
+      "diferencia": 0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.1 Operarios",
+      "excel": 0.004319032536711777,
+      "base": 0.004319032536711776,
+      "diferencia": -8.673617379884035e-19,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.1 Personal_de_mantenimiento",
+      "excel": 0.02879355024474518,
+      "base": 0.028793550244745177,
+      "diferencia": -3.469446951953614e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.10 Operarios",
+      "excel": 0.010077742585660812,
+      "base": 0.010077742585660812,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.10 Personal_de_mantenimiento",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.2 Operarios",
+      "excel": 0.2971494385257703,
+      "base": 0.29714943852577025,
+      "diferencia": -5.551115123125783e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.2 Personal_de_mantenimiento",
+      "excel": 0.2107687877915347,
+      "base": 0.21076878779153468,
+      "diferencia": -2.7755575615628914e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.3 Operarios",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.3 Personal_de_mantenimiento",
+      "excel": 0.006478548805067665,
+      "base": 0.006478548805067665,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.4 Operarios",
+      "excel": 0,
+      "base": 0.0,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.4 Personal_de_mantenimiento",
+      "excel": 0.004319032536711777,
+      "base": 0.004319032536711776,
+      "diferencia": -8.673617379884035e-19,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.5 Operarios",
+      "excel": 0.058882810250503896,
+      "base": 0.05888281025050389,
+      "diferencia": -6.938893903907228e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.5 Personal_de_mantenimiento",
+      "excel": 0.028361646991073998,
+      "base": 0.028361646991073998,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.6 Operarios",
+      "excel": 0.018139936654189462,
+      "base": 0.018139936654189462,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.6 Personal_de_mantenimiento",
+      "excel": 0.009357903829542182,
+      "base": 0.009357903829542182,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.7 Operarios",
+      "excel": 0.09357903829542182,
+      "base": 0.09357903829542183,
+      "diferencia": 1.3877787807814457e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.7 Personal_de_mantenimiento",
+      "excel": 0.006478548805067665,
+      "base": 0.006478548805067665,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.8 Operarios",
+      "excel": 0.013676936366253958,
+      "base": 0.013676936366253958,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.8 Personal_de_mantenimiento",
+      "excel": 0.02735387273250792,
+      "base": 0.027353872732507917,
+      "diferencia": -3.469446951953614e-18,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.9 Operarios",
+      "excel": 0.11589403973509932,
+      "base": 0.11589403973509933,
+      "diferencia": 1.3877787807814457e-17,
+      "resultado": "OK"
+    },
+    {
+      "control": "TD_ajusteOperativo 5.9 Personal_de_mantenimiento",
+      "excel": 0.04981284192340916,
+      "base": 0.04981284192340916,
+      "diferencia": 0.0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q01",
+      "filas": 12,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q02",
+      "filas": 4,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q03",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q04",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q05",
+      "filas": 13,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q06",
+      "filas": 16,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q07",
+      "filas": 2,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q08",
+      "filas": 0,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q09",
+      "filas": 3,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q10",
+      "filas": 2,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q11",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "control": "Q12",
+      "filas": 4,
+      "resultado": "OK"
+    }
+  ]
+}

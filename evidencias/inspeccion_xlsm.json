@@ -1,0 +1,246 @@
+{
+  "archivo": "SEGUIMIENTO TEMPERAS Y VINILOS Actividad.xlsm",
+  "sha256_xlsm": "c7d7eabbd55844757c2be07bd61efcee9eb5e0b03aaf9fd76b798737a92d5c55",
+  "hojas": [
+    {
+      "nombre": "Tiempos",
+      "filas": 59,
+      "columnas": 19
+    },
+    {
+      "nombre": "Calculadora de tiempos",
+      "filas": 40,
+      "columnas": 15
+    },
+    {
+      "nombre": "Registro",
+      "filas": 27,
+      "columnas": 15
+    },
+    {
+      "nombre": "Base De Datos",
+      "filas": 8217,
+      "columnas": 58
+    },
+    {
+      "nombre": "Base de datos de Sub codigos",
+      "filas": 1260,
+      "columnas": 19
+    },
+    {
+      "nombre": "TABLA CODIGOS",
+      "filas": 41,
+      "columnas": 8
+    },
+    {
+      "nombre": "Hoja4",
+      "filas": 38,
+      "columnas": 6
+    },
+    {
+      "nombre": "TD_prodMaq",
+      "filas": 15,
+      "columnas": 3
+    },
+    {
+      "nombre": "prodMaquina",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "prodAño",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "TD_prodAño",
+      "filas": 16,
+      "columnas": 4
+    },
+    {
+      "nombre": "ajusteOperativo",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "prodCodigo",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "TD_prodCodigo",
+      "filas": 22,
+      "columnas": 4
+    },
+    {
+      "nombre": "TD_fallaMecanica",
+      "filas": 12,
+      "columnas": 4
+    },
+    {
+      "nombre": "TD_ajusteOperativo",
+      "filas": 16,
+      "columnas": 7
+    },
+    {
+      "nombre": "Hoja1",
+      "filas": 1,
+      "columnas": 1
+    },
+    {
+      "nombre": "fallaMecanica",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "TD_novPotencia",
+      "filas": 7,
+      "columnas": 4
+    },
+    {
+      "nombre": "novPotencia",
+      "filas": 15,
+      "columnas": 4
+    },
+    {
+      "nombre": "Tablas Desplegables",
+      "filas": 262,
+      "columnas": 52
+    }
+  ],
+  "filas_fuente": {
+    "Base De Datos": 8208,
+    "Base de datos de Sub codigos": 1252
+  },
+  "totales_fuente": {
+    "Base De Datos": {
+      "pacas": 378778.0,
+      "minutos_base": 2283801.0,
+      "minutos_paro": 506979.1
+    },
+    "Base de datos de Sub codigos": {
+      "pacas": 0.0,
+      "minutos_base": 0.0,
+      "minutos_paro": 37211.0
+    }
+  },
+  "minutos_por_codigo": {
+    "Base De Datos": {
+      "05": 109159.6,
+      "06": 92814,
+      "07": 37248.5,
+      "08": 4088,
+      "15": 9950,
+      "16": 120153,
+      "17": 43106,
+      "11": 543,
+      "09": 10928,
+      "10": 21383,
+      "14": 15208,
+      "02": 1955,
+      "12": 13621,
+      "18": 502,
+      "01": 19434,
+      "13": 1148,
+      "04": 510,
+      "03": 5228
+    },
+    "Base de datos de Sub codigos": {
+      "05": 32731,
+      "01": 3542,
+      "03": 938
+    }
+  },
+  "observaciones_calidad": {
+    "filas_exactamente_repetidas": 42,
+    "horas_cero": 401,
+    "paros_superan_base_en_su_fila": 45,
+    "pacas_sin_horas": 1
+  },
+  "sha256_fuente_seudonimizada": "ca94e68e638c9e5ebdd07ea55a0b4234e91b94a4f97f2b95f483933e287c2cf4",
+  "proteccion": "Alias HMAC con clave privada fuera de Git; nombres y observaciones libres no se publican.",
+  "macros": "No ejecutadas; lectura de valores cacheados y XML del paquete.",
+  "vba_presente": true,
+  "formulas_pivote": [
+    {
+      "nombre": "% Codigo 2",
+      "formula": "'Codigo 2 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 4",
+      "formula": "'Codigo 4 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 6",
+      "formula": "'Codigo 6 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 7",
+      "formula": "'Codigo 7 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 8",
+      "formula": "'Codigo 8 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 9",
+      "formula": "'Codigo 9 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 10",
+      "formula": "'Codigo 10 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 11",
+      "formula": "'Codigo 11 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 12",
+      "formula": "'Codigo 12 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 13",
+      "formula": "'Codigo 13 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 14",
+      "formula": "'Codigo 14 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 15",
+      "formula": "'Codigo 15 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 16",
+      "formula": "'Codigo 16 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% codigo 17",
+      "formula": "'Codigo 17 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Codigo 1",
+      "formula": "'Codigo 1 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Codigo 3",
+      "formula": "'Codigo 3 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Codigo 5",
+      "formula": "'Codigo 5 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Codigo 18",
+      "formula": "'Codigo 18 en horas'/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Productividad",
+      "formula": "('Horas trabajadas'-'Tiempo de Paro')/'Horas trabajadas'"
+    },
+    {
+      "nombre": "% Paro",
+      "formula": " 1-'% Productividad'"
+    }
+  ]
+}

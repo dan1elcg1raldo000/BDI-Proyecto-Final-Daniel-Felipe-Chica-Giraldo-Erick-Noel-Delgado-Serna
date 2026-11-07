@@ -1,0 +1,151 @@
+[
+  {
+    "prueba": "Código inexistente",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "FOREIGN KEY constraint failed"
+  },
+  {
+    "prueba": "Subcódigo de otra causa",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "FOREIGN KEY constraint failed"
+  },
+  {
+    "prueba": "Duración negativa",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "CHECK constraint failed: minutos>0"
+  },
+  {
+    "prueba": "Duración cero",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "CHECK constraint failed: minutos>0"
+  },
+  {
+    "prueba": "Exceso de paro en INSERT",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Los paros superan los minutos programados"
+  },
+  {
+    "prueba": "Exceso de paro en UPDATE",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Los paros superan los minutos programados"
+  },
+  {
+    "prueba": "Reducir el tiempo base",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "El segmento es menor que su detalle"
+  },
+  {
+    "prueba": "Borrar máquina utilizada",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "FOREIGN KEY constraint failed"
+  },
+  {
+    "prueba": "Origen duplicado",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "UNIQUE constraint failed: registro_produccion.origen"
+  },
+  {
+    "prueba": "Fecha inválida",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "CHECK constraint failed: length(fecha)=10 AND fecha GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' AND date(fecha,'+0 days') IS NOT NULL AND date(fecha,'+0 days')=fecha"
+  },
+  {
+    "prueba": "Detalle horario excesivo",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Detalle horario fuera del segmento"
+  },
+  {
+    "prueba": "Hora fuera del segmento",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Detalle horario fuera del segmento"
+  },
+  {
+    "prueba": "Producción inferior a su detalle",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "El segmento es menor que su detalle"
+  },
+  {
+    "prueba": "NOT NULL",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "NOT NULL constraint failed: persona.seudonimo"
+  },
+  {
+    "prueba": "Código 18 sin aprobar en nueva captura",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Código 18 pendiente de aprobación para nuevas capturas"
+  },
+  {
+    "prueba": "Código 18 sin aprobar en modificación",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Código 18 pendiente de aprobación para nuevas capturas"
+  },
+  {
+    "prueba": "Fuente y fila repetidas",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "UNIQUE constraint failed: staging_xlsm.fuente_id, staging_xlsm.fila"
+  },
+  {
+    "prueba": "INSERT, UPDATE, DELETE válidos y duración decimal",
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q01",
+    "filas": 12,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q02",
+    "filas": 4,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q03",
+    "filas": 18,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q04",
+    "filas": 3,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q05",
+    "filas": 12,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q06",
+    "filas": 4,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q07",
+    "filas": 2,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q08",
+    "filas": 0,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q09",
+    "filas": 1,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q10",
+    "filas": 1,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q11",
+    "filas": 4,
+    "resultado": "OK"
+  },
+  {
+    "consulta": "Q12",
+    "filas": 4,
+    "resultado": "OK"
+  }
+]

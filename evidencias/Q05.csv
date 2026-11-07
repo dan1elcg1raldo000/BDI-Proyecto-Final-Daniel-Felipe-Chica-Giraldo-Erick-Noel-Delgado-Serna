@@ -1,0 +1,14 @@
+maquina,turno,filas_fuente,productividad_pct,minutos_base
+Vinilos_1,6am-2pm (Turno 1),74,68.4636,18420.0
+Vinilos_1,2pm-10pm (Turno 2),37,78.8435,11760.0
+Vinilos_1,10pm-6am (Turno 3),29,78.6944,10800.0
+Vinilos_2,6am-2pm (Turno 1),13,54.5556,4500.0
+Vinilos_2,2pm-10pm (Turno 2),6,67.5532,2820.0
+Vinilos_2,6am-4:30pm,32,55.6136,11490.0
+Vinilos_3,6am-2pm (Turno 1),71,67.5037,20430.0
+Vinilos_3,2pm-10pm (Turno 2),56,70.7688,19380.0
+Vinilos_3,10pm-6am (Turno 3),26,61.7829,7740.0
+Vinilos_3,6am-4:30pm,5,61.5447,2460.0
+Vinilos_4,6am-2pm (Turno 1),74,71.5871,21360.0
+Vinilos_4,2pm-10pm (Turno 2),67,74.0309,21360.0
+Vinilos_4,10pm-6am (Turno 3),44,76.0121,16500.0
