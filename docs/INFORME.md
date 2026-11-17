@@ -12,7 +12,7 @@ Daniel Felipe Chica Giraldo
 Erick Noel Delgado Serna
 
 
-6 de noviembre de 2026
+Revisión local: 17 de noviembre de 2026
 
 
 | Componente | Resultado |
@@ -23,7 +23,7 @@ Erick Noel Delgado Serna
 
 | Conciliación | 118 controles satisfactorios contra los datos y tablas dinámicas del Excel. |
 
-| Repositorio | Repositorio Git incluido; el enlace se incorpora al generar el informe en GitHub. |
+| Repositorio | https://github.com/dan1elcg1raldo000/BDI-Proyecto-Final-Daniel-Felipe-Chica-Giraldo-Erick-Noel-Delgado-Serna |
 
 
 
@@ -181,13 +181,16 @@ Cada entidad tiene PK. El origen y la combinación (fuente_id,fila_fuente) son c
 ## Primera forma normal
 
 
-Las columnas de causas se convierten en filas de paro con valores individuales. Las participaciones se almacenan una por persona. Agregar una causa no exige una nueva columna ni una fórmula por máquina.
+Las celdas numéricas de la tabla ancha ya pueden ser atómicas; el problema es la estructura repetida de causas y su mantenimiento. Las columnas de causas se convierten en filas de paro con la misma estructura. Las participaciones se almacenan una por persona. Agregar una causa no exige una nueva columna ni una fórmula por máquina.
 
 
 ## Segunda forma normal
 
 
 La producción y los tiempos base dependen de la fila de registro, no de cada causa. Se separan de los detalles de paro. En intervención, el rol corresponde a la combinación paro/persona. En producción_hora, la cantidad depende del registro y del bloque horario completo.
+
+
+Ejemplo didáctico: una fila S tiene 8 pacas, 60 minutos base y dos causas con 5 y 3 minutos. Si la relación intermedia tiene clave (fila,código), fila determina por sí sola las pacas y la base: existe dependencia parcial. La cabecera final conserva una sola vez las 8 pacas y los 60 minutos; paro conserva los dos detalles. La clave real de paro es id porque puede haber más de un detalle por causa.
 
 
 ## Tercera forma normal
@@ -215,6 +218,9 @@ Los nombres de máquina, turno, referencia y causa se almacenan en sus catálogo
 El núcleo del negocio llega a 3FN. Staging conserva JSON de la fuente por trazabilidad y no pretende sustituir al modelo normalizado. Los reportes leen las tablas normalizadas. Mes, año y porcentajes se derivan de fecha y medidas base, sin almacenarse redundantemente.
 
 
+Se declara una redundancia técnica deliberada: origen materializa huella, fuente y fila, además de la clave alternativa fuente/fila. Incidencia también conserva la procedencia cuando falta un registro operativo. La capa de staging y auditoría conserva el origen para conciliar y no se presenta como un modelo operativo sin redundancia. El desarrollo paso a paso está en docs/NORMALIZACION.md.
+
+
 # 7. Diccionario de datos
 
 
@@ -228,7 +234,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -236,7 +242,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| hoja; TEXT · NULL: No; Default: Sin DEFAULT | Nombre único de la hoja o conjunto de captura.; UNIQUE(hoja) |
+| hoja; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Nombre único de la hoja o conjunto de captura.; UNIQUE(hoja) |
 
 
 
@@ -244,7 +250,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| archivo_sha256; TEXT · NULL: Sí; Default: Sin DEFAULT | Huella del XLSM; NULL en demo/captura.; CHECK(archivo_sha256 IS NULL OR length(archivo_sha256)=64) |
+| archivo_sha256; TEXT · NULL: Sí; Longitud: 64 caracteres (CHECK); Default: Sin DEFAULT | Huella del XLSM; NULL en demo/captura.; CHECK(archivo_sha256 IS NULL OR length(archivo_sha256)=64) |
 
 
 
@@ -252,7 +258,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| ambito; TEXT · NULL: No; Default: Sin DEFAULT | PRINCIPAL alimenta indicadores; AUXILIAR se conserva aparte; DEMO se filtra por clase.; CHECK(ambito IN ('PRINCIPAL','AUXILIAR','DEMO')) |
+| ambito; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | PRINCIPAL alimenta indicadores; AUXILIAR se conserva aparte; DEMO se filtra por clase.; CHECK(ambito IN ('PRINCIPAL','AUXILIAR','DEMO')) |
 
 
 
@@ -263,7 +269,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -271,7 +277,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| nombre; TEXT · NULL: No; Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 30) |
+| nombre; TEXT · NULL: No; Longitud: 1 a 30 caracteres (CHECK); Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 30) |
 
 
 
@@ -279,7 +285,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| activa; INTEGER · NULL: No; Default: 1 | Indicador operativo 1/0; no borra referencias históricas.; CHECK(activa IN (0,1)) |
+| activa; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: 1 | Indicador operativo 1/0; no borra referencias históricas.; CHECK(activa IN (0,1)) |
 
 
 
@@ -290,7 +296,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -298,7 +304,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| nombre; TEXT · NULL: No; Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 40) |
+| nombre; TEXT · NULL: No; Longitud: 1 a 40 caracteres (CHECK); Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 40) |
 
 
 
@@ -306,7 +312,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| inicio; TEXT · NULL: No; Default: Sin DEFAULT | Inicio HH:MM.; CHECK(length(inicio)=5 AND inicio GLOB '[0-2][0-9]:[0-5][0-9]' AND inicio<'24:00') |
+| inicio; TEXT · NULL: No; Longitud: 5 caracteres (CHECK); Default: Sin DEFAULT | Inicio HH:MM.; CHECK(length(inicio)=5 AND inicio GLOB '[0-2][0-9]:[0-5][0-9]' AND inicio<'24:00') |
 
 
 
@@ -314,7 +320,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fin; TEXT · NULL: No; Default: Sin DEFAULT | Fin HH:MM, con posible cruce de medianoche.; CHECK(length(fin)=5 AND fin GLOB '[0-2][0-9]:[0-5][0-9]' AND fin<'24:00') |
+| fin; TEXT · NULL: No; Longitud: 5 caracteres (CHECK); Default: Sin DEFAULT | Fin HH:MM, con posible cruce de medianoche.; CHECK(length(fin)=5 AND fin GLOB '[0-2][0-9]:[0-5][0-9]' AND fin<'24:00') |
 
 
 
@@ -325,7 +331,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -333,7 +339,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| seudonimo; TEXT · NULL: No; Default: Sin DEFAULT | Alias HMAC irreversible sin la clave privada externa.; UNIQUE(seudonimo); CHECK(length(seudonimo) BETWEEN 1 AND 30) |
+| seudonimo; TEXT · NULL: No; Longitud: 1 a 30 caracteres (CHECK); Default: Sin DEFAULT | Alias HMAC irreversible sin la clave privada externa.; UNIQUE(seudonimo); CHECK(length(seudonimo) BETWEEN 1 AND 30) |
 
 
 
@@ -341,7 +347,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| activa; INTEGER · NULL: No; Default: 1 | Indicador operativo 1/0; no borra referencias históricas.; CHECK(activa IN (0,1)) |
+| activa; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: 1 | Indicador operativo 1/0; no borra referencias históricas.; CHECK(activa IN (0,1)) |
 
 
 
@@ -352,7 +358,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -360,7 +366,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| nombre; TEXT · NULL: No; Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 120) |
+| nombre; TEXT · NULL: No; Longitud: 1 a 120 caracteres (CHECK); Default: Sin DEFAULT | Etiqueta única del catálogo.; UNIQUE(nombre); CHECK(length(nombre) BETWEEN 1 AND 120) |
 
 
 
@@ -371,7 +377,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| codigo; TEXT · NULL: No; Default: Sin DEFAULT | Código principal con dos dígitos.; PK; CHECK(length(codigo)=2 AND codigo GLOB '[0-9][0-9]') |
+| codigo; TEXT · NULL: No; Longitud: 2 caracteres (CHECK); Default: Sin DEFAULT | Código principal con dos dígitos.; PK; CHECK(length(codigo)=2 AND codigo GLOB '[0-9][0-9]') |
 
 
 
@@ -379,7 +385,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| descripcion; TEXT · NULL: No; Default: Sin DEFAULT | Descripción única para esa clave de catálogo.; CHECK(length(descripcion) BETWEEN 1 AND 180) |
+| descripcion; TEXT · NULL: No; Longitud: 1 a 180 caracteres (CHECK); Default: Sin DEFAULT | Descripción única para esa clave de catálogo.; CHECK(length(descripcion) BETWEEN 1 AND 180) |
 
 
 
@@ -390,7 +396,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| codigo; TEXT · NULL: No; Default: Sin DEFAULT | Código principal con dos dígitos.; PK compuesta; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE |
+| codigo; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Código principal con dos dígitos.; PK compuesta; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -398,7 +404,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| subcodigo; TEXT · NULL: No; Default: Sin DEFAULT | Identificador local, conservando variantes históricas.; PK compuesta; CHECK(length(subcodigo) BETWEEN 1 AND 15) |
+| subcodigo; TEXT · NULL: No; Longitud: 1 a 15 caracteres (CHECK); Default: Sin DEFAULT | Identificador local, conservando variantes históricas.; PK compuesta; CHECK(length(subcodigo) BETWEEN 1 AND 15) |
 
 
 
@@ -406,7 +412,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| descripcion; TEXT · NULL: No; Default: Sin DEFAULT | Descripción única para esa clave de catálogo.; CHECK(length(descripcion) BETWEEN 1 AND 180) |
+| descripcion; TEXT · NULL: No; Longitud: 1 a 180 caracteres (CHECK); Default: Sin DEFAULT | Descripción única para esa clave de catálogo.; CHECK(length(descripcion) BETWEEN 1 AND 180) |
 
 
 
@@ -417,7 +423,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -425,7 +431,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fecha; TEXT · NULL: No; Default: Sin DEFAULT | Fecha registrada en la fuente, ISO AAAA-MM-DD.; CHECK(length(fecha)=10 AND fecha GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' AND date(fecha,'+0 days') IS NOT NULL AND date(fecha,'+0 days')=fecha) |
+| fecha; TEXT · NULL: No; Longitud: 10 caracteres (CHECK); Default: Sin DEFAULT | Fecha registrada en la fuente, ISO AAAA-MM-DD.; CHECK(length(fecha)=10 AND fecha GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' AND date(fecha,'+0 days') IS NOT NULL AND date(fecha,'+0 days')=fecha) |
 
 
 
@@ -433,7 +439,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| maquina_id; INTEGER · NULL: No; Default: Sin DEFAULT | Línea a la que corresponde la fila.; FK maquina.id; DELETE RESTRICT; UPDATE CASCADE |
+| maquina_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Línea a la que corresponde la fila.; FK maquina.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -441,7 +447,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| turno_id; INTEGER · NULL: Sí; Default: Sin DEFAULT | Turno identificado; NULL significa desconocido o no aplicable según staging.; FK turno.id; DELETE RESTRICT; UPDATE CASCADE |
+| turno_id; INTEGER · NULL: Sí; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Turno identificado; NULL significa desconocido o no aplicable según staging.; FK turno.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -449,7 +455,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| operario_id; INTEGER · NULL: Sí; Default: Sin DEFAULT | Alias de la persona operadora; NULL cuando no se registró.; FK persona.id; DELETE RESTRICT; UPDATE CASCADE |
+| operario_id; INTEGER · NULL: Sí; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Alias de la persona operadora; NULL cuando no se registró.; FK persona.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -457,7 +463,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| referencia_id; INTEGER · NULL: Sí; Default: Sin DEFAULT | Presentación del producto; NULL cuando falta.; FK referencia.id; DELETE RESTRICT; UPDATE CASCADE |
+| referencia_id; INTEGER · NULL: Sí; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Presentación del producto; NULL cuando falta.; FK referencia.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -465,7 +471,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| minutos_base; REAL · NULL: Sí; Default: Sin DEFAULT | Horas trabajadas del Excel multiplicadas por 60, sin rellenar faltantes. Puede ser 0 en histórico.; CHECK(minutos_base IS NULL OR minutos_base BETWEEN 0 AND 1440) |
+| minutos_base; REAL · NULL: Sí; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: Sin DEFAULT | Horas trabajadas del Excel multiplicadas por 60, sin rellenar faltantes. Puede ser 0 en histórico.; CHECK(minutos_base IS NULL OR minutos_base BETWEEN 0 AND 1440) |
 
 
 
@@ -473,7 +479,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| meta_pacas_hora; REAL · NULL: Sí; Default: Sin DEFAULT | Meta de volumen opcional para captura nueva. La fuente histórica no la contiene.; CHECK(meta_pacas_hora IS NULL OR meta_pacas_hora>0) |
+| meta_pacas_hora; REAL · NULL: Sí; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: Sin DEFAULT | Meta de volumen opcional para captura nueva. La fuente histórica no la contiene.; CHECK(meta_pacas_hora IS NULL OR meta_pacas_hora>0) |
 
 
 
@@ -481,7 +487,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| pacas_reales; REAL · NULL: Sí; Default: 0 | Pacas de la fila. NULL se conserva como desconocido, sin copiar datos del registro anterior.; CHECK(pacas_reales IS NULL OR pacas_reales>=0) |
+| pacas_reales; REAL · NULL: Sí; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: 0 | Pacas de la fila. NULL se conserva como desconocido, sin copiar datos del registro anterior.; CHECK(pacas_reales IS NULL OR pacas_reales>=0) |
 
 
 
@@ -489,7 +495,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| origen; TEXT · NULL: No; Default: Sin DEFAULT | SHA del archivo, fuente y fila; clave idempotente.; UNIQUE(origen); CHECK(length(origen) BETWEEN 1 AND 160) |
+| origen; TEXT · NULL: No; Longitud: 1 a 160 caracteres (CHECK); Default: Sin DEFAULT | SHA del archivo, fuente y fila; clave idempotente.; UNIQUE(origen); CHECK(length(origen) BETWEEN 1 AND 160) |
 
 
 
@@ -497,7 +503,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| clase; TEXT · NULL: No; Default: 'REAL' | REAL para datos del libro o capturas; DEMO para la demostración sintética.; CHECK(clase IN ('REAL','DEMO')) |
+| clase; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: 'REAL' | REAL para datos del libro o capturas; DEMO para la demostración sintética.; CHECK(clase IN ('REAL','DEMO')) |
 
 
 
@@ -505,7 +511,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| creado_en; TEXT · NULL: No; Default: CURRENT_TIMESTAMP | Sello UTC de inserción.; Sin restricción adicional |
+| creado_en; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: CURRENT_TIMESTAMP | Sello UTC de inserción.; Sin restricción adicional |
 
 
 
@@ -513,7 +519,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fuente_id; INTEGER · NULL: No; Default: 4 | Hoja/conjunto de origen.; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE; UNIQUE(fuente_id,fila_fuente) |
+| fuente_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: 4 | Hoja/conjunto de origen.; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE; UNIQUE(fuente_id,fila_fuente) |
 
 
 
@@ -521,7 +527,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fila_fuente; INTEGER · NULL: Sí; Default: Sin DEFAULT | Número de fila en la hoja Excel.; UNIQUE(fuente_id,fila_fuente); CHECK(fila_fuente IS NULL OR fila_fuente>0) |
+| fila_fuente; INTEGER · NULL: Sí; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Número de fila en la hoja Excel.; UNIQUE(fuente_id,fila_fuente); CHECK(fila_fuente IS NULL OR fila_fuente>0) |
 
 
 
@@ -529,7 +535,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| estado; TEXT · NULL: No; Default: 'CAPTURA' | HISTORICO conserva anomalías; CAPTURA exige campos y presupuesto de tiempos válidos.; CHECK(estado IN ('CAPTURA','HISTORICO')) |
+| estado; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: 'CAPTURA' | HISTORICO conserva anomalías; CAPTURA exige campos y presupuesto de tiempos válidos.; CHECK(estado IN ('CAPTURA','HISTORICO')) |
 
 
 
@@ -537,7 +543,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| minutos_sin_trabajar; REAL · NULL: Sí; Default: Sin DEFAULT | Horas no trabajadas originales multiplicadas por 60.; CHECK(minutos_sin_trabajar IS NULL OR minutos_sin_trabajar>=0) |
+| minutos_sin_trabajar; REAL · NULL: Sí; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: Sin DEFAULT | Horas no trabajadas originales multiplicadas por 60.; CHECK(minutos_sin_trabajar IS NULL OR minutos_sin_trabajar>=0) |
 
 
 
@@ -548,7 +554,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -556,7 +562,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| registro_id; INTEGER · NULL: No; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
+| registro_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -564,7 +570,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| codigo; TEXT · NULL: No; Default: Sin DEFAULT | Código principal con dos dígitos.; FK subcodigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE |
+| codigo; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Código principal con dos dígitos.; FK subcodigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE; FK codigo_paro.codigo; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -572,7 +578,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| subcodigo; TEXT · NULL: Sí; Default: Sin DEFAULT | Identificador local, conservando variantes históricas.; FK subcodigo_paro.subcodigo; DELETE RESTRICT; UPDATE CASCADE |
+| subcodigo; TEXT · NULL: Sí; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Identificador local, conservando variantes históricas.; FK subcodigo_paro.subcodigo; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -580,7 +586,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| minutos; REAL · NULL: No; Default: Sin DEFAULT | Duración en minutos, admite el decimal que aparece en la fuente.; CHECK(minutos>0) |
+| minutos; REAL · NULL: No; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: Sin DEFAULT | Duración en minutos, admite el decimal que aparece en la fuente.; CHECK(minutos>0) |
 
 
 
@@ -588,7 +594,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| observacion; TEXT · NULL: Sí; Default: Sin DEFAULT | Aclaración de nuevas capturas. Las observaciones originales se reservan por privacidad.; CHECK(observacion IS NULL OR length(observacion)<=500) |
+| observacion; TEXT · NULL: Sí; Longitud: Hasta 500 caracteres (CHECK); Default: Sin DEFAULT | Aclaración de nuevas capturas. Las observaciones originales se reservan por privacidad.; CHECK(observacion IS NULL OR length(observacion)<=500) |
 
 
 
@@ -596,7 +602,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| agente; TEXT · NULL: Sí; Default: Sin DEFAULT | Grupo que interviene en el ajuste; independiente de si se conoce una persona.; CHECK(agente IS NULL OR length(agente)<=60) |
+| agente; TEXT · NULL: Sí; Longitud: Hasta 60 caracteres (CHECK); Default: Sin DEFAULT | Grupo que interviene en el ajuste; independiente de si se conoce una persona.; CHECK(agente IS NULL OR length(agente)<=60) |
 
 
 
@@ -607,7 +613,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| paro_id; INTEGER · NULL: No; Default: Sin DEFAULT | Tiempo de paro al que corresponde una participación.; PK compuesta; FK paro.id; DELETE RESTRICT; UPDATE CASCADE |
+| paro_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Tiempo de paro al que corresponde una participación.; PK compuesta; FK paro.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -615,7 +621,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| persona_id; INTEGER · NULL: No; Default: Sin DEFAULT | Persona participante mediante alias.; PK compuesta; FK persona.id; DELETE RESTRICT; UPDATE CASCADE |
+| persona_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Persona participante mediante alias.; PK compuesta; FK persona.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -623,7 +629,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| rol; TEXT · NULL: No; Default: Sin DEFAULT | Función de esa persona en esa participación.; CHECK(rol IN ('MANTENIMIENTO','OPERACION','CALIDAD','OTRO')) |
+| rol; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Función de esa persona en esa participación.; CHECK(rol IN ('MANTENIMIENTO','OPERACION','CALIDAD','OTRO')) |
 
 
 
@@ -634,7 +640,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| registro_id; INTEGER · NULL: No; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; PK compuesta; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
+| registro_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; PK compuesta; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -642,7 +648,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| hora_relativa; INTEGER · NULL: No; Default: Sin DEFAULT | Bloque horario desde el comienzo del segmento de una captura nueva.; PK compuesta; CHECK(typeof(hora_relativa)='integer' AND hora_relativa BETWEEN 0 AND 23) |
+| hora_relativa; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Bloque horario desde el comienzo del segmento de una captura nueva.; PK compuesta; CHECK(typeof(hora_relativa)='integer' AND hora_relativa BETWEEN 0 AND 23) |
 
 
 
@@ -650,7 +656,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| pacas; REAL · NULL: No; Default: Sin DEFAULT | Cantidad del bloque horario.; CHECK(pacas>=0) |
+| pacas; REAL · NULL: No; Longitud: Punto flotante de 64 bits; no tiene escala decimal fija; Default: Sin DEFAULT | Cantidad del bloque horario.; CHECK(pacas>=0) |
 
 
 
@@ -661,7 +667,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -669,7 +675,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| pagina; INTEGER · NULL: No; Default: Sin DEFAULT | Página de la exportación PDF, para la extracción previa.; UNIQUE(pagina,linea); CHECK(pagina BETWEEN 1 AND 3213) |
+| pagina; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Página de la exportación PDF, para la extracción previa.; UNIQUE(pagina,linea); CHECK(pagina BETWEEN 1 AND 3213) |
 
 
 
@@ -677,7 +683,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| linea; INTEGER · NULL: No; Default: Sin DEFAULT | Línea de texto PDF extraída.; UNIQUE(pagina,linea); CHECK(linea>0) |
+| linea; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Línea de texto PDF extraída.; UNIQUE(pagina,linea); CHECK(linea>0) |
 
 
 
@@ -685,7 +691,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fecha; TEXT · NULL: No; Default: Sin DEFAULT | Fecha registrada en la fuente, ISO AAAA-MM-DD.; Sin restricción adicional |
+| fecha; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Fecha registrada en la fuente, ISO AAAA-MM-DD.; Sin restricción adicional |
 
 
 
@@ -693,7 +699,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| maquina; TEXT · NULL: No; Default: Sin DEFAULT | Etiqueta recuperada en la extracción previa.; Sin restricción adicional |
+| maquina; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Etiqueta recuperada en la extracción previa.; Sin restricción adicional |
 
 
 
@@ -701,7 +707,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| estado; TEXT · NULL: No; Default: 'PENDIENTE_EXCEL' | Estado de la extracción PDF anterior: PENDIENTE_EXCEL o REVISADO. Esta tabla no alimenta los indicadores del XLSM.; CHECK(estado IN ('PENDIENTE_EXCEL','REVISADO')) |
+| estado; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: 'PENDIENTE_EXCEL' | Estado de la extracción PDF anterior: PENDIENTE_EXCEL o REVISADO. Esta tabla no alimenta los indicadores del XLSM.; CHECK(estado IN ('PENDIENTE_EXCEL','REVISADO')) |
 
 
 
@@ -712,7 +718,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fuente_id; INTEGER · NULL: No; Default: Sin DEFAULT | Hoja/conjunto de origen.; PK compuesta; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE |
+| fuente_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Hoja/conjunto de origen.; PK compuesta; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -720,7 +726,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fila; INTEGER · NULL: No; Default: Sin DEFAULT | Fila de la hoja que identifica el origen.; PK compuesta; CHECK(fila>0) |
+| fila; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Fila de la hoja que identifica el origen.; PK compuesta; CHECK(fila>0) |
 
 
 
@@ -728,7 +734,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| contenido_json; TEXT · NULL: No; Default: Sin DEFAULT | Contenido seudonimizado de la fila y marcador de repetición, con nulos y ceros originales.; CHECK(json_valid(contenido_json)) |
+| contenido_json; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Contenido seudonimizado de la fila y marcador de repetición, con nulos y ceros originales.; CHECK(json_valid(contenido_json)) |
 
 
 
@@ -739,7 +745,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| id; INTEGER · NULL: No; Default: Sin DEFAULT | Identificador interno.; PK |
+| id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Identificador interno.; PK |
 
 
 
@@ -747,7 +753,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| registro_id; INTEGER · NULL: Sí; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
+| registro_id; INTEGER · NULL: Sí; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Fila de producción de la que depende el detalle.; FK registro_produccion.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -755,7 +761,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fuente_id; INTEGER · NULL: No; Default: Sin DEFAULT | Hoja/conjunto de origen.; FK staging_xlsm.fuente_id; DELETE RESTRICT; UPDATE CASCADE; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE |
+| fuente_id; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Hoja/conjunto de origen.; FK staging_xlsm.fuente_id; DELETE RESTRICT; UPDATE CASCADE; FK fuente.id; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -763,7 +769,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| fila; INTEGER · NULL: No; Default: Sin DEFAULT | Fila de la hoja que identifica el origen.; FK staging_xlsm.fila; DELETE RESTRICT; UPDATE CASCADE |
+| fila; INTEGER · NULL: No; Longitud: Entero con signo de hasta 64 bits; no tiene longitud decimal fija; Default: Sin DEFAULT | Fila de la hoja que identifica el origen.; FK staging_xlsm.fila; DELETE RESTRICT; UPDATE CASCADE |
 
 
 
@@ -771,7 +777,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| tipo; TEXT · NULL: No; Default: Sin DEFAULT | Clasificación del hallazgo de calidad.; Sin restricción adicional |
+| tipo; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Clasificación del hallazgo de calidad.; Sin restricción adicional |
 
 
 
@@ -779,7 +785,7 @@ INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque 
 
 |---|---|
 
-| detalle; TEXT · NULL: No; Default: Sin DEFAULT | Explicación sin datos personales.; Sin restricción adicional |
+| detalle; TEXT · NULL: No; Longitud: Variable; sin límite de negocio adicional al dominio CHECK y al límite del motor; Default: Sin DEFAULT | Explicación sin datos personales.; Sin restricción adicional |
 
 
 
@@ -993,7 +999,7 @@ En enero-marzo de 2025, alimentación y aseo (16), limpieza por derrame (06) y a
 El conjunto utiliza INNER JOIN y LEFT JOIN, agregaciones, GROUP BY, HAVING, subconsultas correlacionadas, NOT EXISTS, CTE y funciones de ventana. Los rangos son semiabiertos: fecha mayor o igual a desde y menor que hasta. Q01 usa meses completos y Q02 fija los períodos comparables.
 
 
-Las pruebas rechazaron correctamente 17 casos inválidos. También comprobaron INSERT, UPDATE y DELETE válidos, duración decimal, integridad referencial y detalle horario de la demo. El constructor SQL único reconstruye la base y el script de sustentación no deja mutaciones. La carga revisada revierte ante una FK inválida y rechaza reimportaciones por origen repetido.
+Las pruebas rechazaron correctamente 18 casos inválidos. También comprobaron INSERT, UPDATE y DELETE válidos, duración decimal, integridad referencial y detalle horario de la demo. El constructor SQL único reconstruye la base y el script de sustentación no deja mutaciones. La carga revisada revierte ante una FK inválida y rechaza reimportaciones por origen repetido.
 
 
 # 13. Calidad, privacidad y límites
@@ -1029,13 +1035,13 @@ No hay horarios de inicio y fin de cada falla, por lo que no se calculan MTBF ni
 # 14. Repositorio y sustentación
 
 
-El repositorio entregado conserva commits de los cambios efectuados durante la preparación. El autor de esos commits es Codex Automation y las fechas son reales. No se atribuyen contribuciones personales a los integrantes. El historial demuestra la evolución automatizada del proyecto; por sí solo no acredita la participación personal de ambos estudiantes exigida por el enunciado.
+La revisión inicial del repositorio público al 17 de noviembre de 2026 encontró dos commits bajo la cuenta dan1elcg1raldo000. Las correcciones posteriores se identifican como preparación técnica automatizada de Codex. Ese trabajo no acredita contribuciones personales de ambos integrantes ni sustituye el requisito de evolución y participación del enunciado. No se reconstruyen autorías ni fechas ficticias.
 
 
-El historial Git documenta la evolución del modelo, la extracción de fuentes, la implementación, la conciliación y la actualización de los resultados.
+La entrega incluye .gitignore, una regla .gitattributes para conservar el SHA-256 de la fuente JSONL y un flujo de verificación en .github/workflows/verificar.yml. La versión publicada debe comprobarse en GitHub contra la versión local que se muestra en la sustentación.
 
 
-La verificación de GitHub reconstruye la base desde el JSONL seudonimizado, ejecuta restricciones y conciliación y genera este informe con el enlace real del repositorio. La ejecución remota se comprobará después de publicar; las verificaciones incluidas se ejecutaron localmente.
+El flujo de GitHub Actions reconstruye y audita SQLite y genera el informe. Su estado se consulta en la sección Actions del repositorio; la existencia del archivo YAML no basta para afirmar que pasó. Las cinco verificaciones del proyecto se ejecutaron satisfactoriamente en este PC. DEMOSTRAR.cmd ejecuta una reconstrucción temporal y Q12 sin editar código.
 
 
 ## Reproducción
@@ -1371,6 +1377,9 @@ WHEN NEW.codigo='18' AND (SELECT estado FROM registro_produccion WHERE id=NEW.re
 BEGIN SELECT RAISE(ABORT,'Código 18 pendiente de aprobación para nuevas capturas'); END;
 CREATE TRIGGER codigo_18_modificacion_captura BEFORE UPDATE OF codigo,registro_id ON paro
 WHEN NEW.codigo='18' AND (SELECT estado FROM registro_produccion WHERE id=NEW.registro_id)='CAPTURA'
+BEGIN SELECT RAISE(ABORT,'Código 18 pendiente de aprobación para nuevas capturas'); END;
+CREATE TRIGGER codigo_18_transicion_captura BEFORE UPDATE OF estado ON registro_produccion
+WHEN NEW.estado='CAPTURA' AND EXISTS(SELECT 1 FROM paro WHERE registro_id=OLD.id AND codigo='18')
 BEGIN SELECT RAISE(ABORT,'Código 18 pendiente de aprobación para nuevas capturas'); END;
 CREATE TRIGGER validar_paro_insert BEFORE INSERT ON paro
 WHEN (SELECT estado FROM registro_produccion WHERE id=NEW.registro_id)='CAPTURA' AND NEW.minutos+COALESCE((SELECT SUM(minutos) FROM paro WHERE registro_id=NEW.registro_id),0)

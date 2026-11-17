@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+base_nueva.sqlite
+base_demo_*.sqlite
+# Insumos personales y claves privadas fuera de Git
+*.xlsm
+*.key
+*.pem
+.env
+.env.*
+clave_privada*
+clave-privada*
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

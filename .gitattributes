@@ -1,0 +1,11 @@
+# Conservar exactamente los bytes auditados por SHA-256.
+datos/origen_xlsm.jsonl -text
+*.py text eol=lf
+*.sql text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.mmd text eol=lf
+*.pdf binary
+*.pptx binary
+*.sqlite binary

@@ -13,6 +13,7 @@ erDiagram
     PARO ||--o{ INTERVENCION : atiende
     PERSONA ||--o{ INTERVENCION : participa
     STAGING_XLSM ||--o{ INCIDENCIA : documenta
+    FUENTE ||--o{ INCIDENCIA : identifica
     REGISTRO_PRODUCCION o|--o{ INCIDENCIA : observa
     FUENTE {
         INTEGER id PK
@@ -98,4 +99,12 @@ erDiagram
         INTEGER fila
         TEXT tipo
         TEXT detalle
+    }
+    STAGING_PDF {
+        INTEGER id PK
+        INTEGER pagina
+        INTEGER linea
+        TEXT fecha
+        TEXT maquina
+        TEXT estado
     }

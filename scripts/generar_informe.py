@@ -14,7 +14,7 @@ D=json.loads((P/'docs/diccionario.json').read_text(encoding='utf-8'))
 Q=json.loads((P/'datos/consultas.json').read_text(encoding='utf-8'))
 V=json.loads((P/'evidencias/conciliacion_historica.json').read_text(encoding='utf-8'))
 repo=os.getenv('GITHUB_REPOSITORY','')
-url='https://github.com/'+repo if re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repo) else 'Repositorio Git incluido; el enlace se incorpora al generar el informe en GitHub.'
+url='https://github.com/'+repo if re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repo) else 'https://github.com/dan1elcg1raldo000/BDI-Proyecto-Final-Daniel-Felipe-Chica-Giraldo-Erick-Noel-Delgado-Serna'
 fd=Path('C:/Windows/Fonts')
 if (fd/'arial.ttf').exists():normal,bold=fd/'arial.ttf',fd/'arialbd.ttf'
 else:
@@ -36,7 +36,10 @@ def h(t):p(t,'H');md[-1]='# '+md[-1]
 def sub(t):p(t,'H2');md[-1]='## '+md[-1]
 def page():story.append(PageBreak())
 def table(head,rows,widths):
- values=[[Paragraph(html.escape(str(v)),S['Sm']) for v in row] for row in [head]+rows]
+ def markup(v):
+  escaped=html.escape(str(v))
+  return '<link href="'+escaped+'" color="#166477">'+escaped+'</link>' if str(v).startswith('https://') else escaped
+ values=[[Paragraph(markup(v),S['Sm']) for v in row] for row in [head]+rows]
  t=Table(values,colWidths=widths,repeatRows=1,hAlign='LEFT')
  t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#E3EFF3')),('VALIGN',(0,0),(-1,-1),'TOP'),('LINEBELOW',(0,0),(-1,0),.7,colors.HexColor('#68A2AF')),('LINEBELOW',(0,1),(-1,-1),.3,colors.HexColor('#D8E1E6')),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),('LEFTPADDING',(0,0),(-1,-1),6),('RIGHTPADDING',(0,0),(-1,-1),6)]));story.append(t);story.append(Spacer(1,10))
  md.extend(['| '+' | '.join(head)+' |','|'+'|'.join(['---']*len(head))+'|']+['| '+' | '.join(str(v).replace('|','/').replace('\n','; ') for v in row)+' |' for row in rows]+[''])
@@ -50,7 +53,7 @@ def csvrows(file):
 story.append(Spacer(1,65));p('BASES DE DATOS I · PROYECTO FINAL','H2')
 p('Registro de producción\ny paros de envasado','T')
 p('Vinilos y témperas · Migración del XLSM original','H2')
-story.append(Spacer(1,25));p('Daniel Felipe Chica Giraldo\nErick Noel Delgado Serna','H2');p('6 de noviembre de 2026')
+story.append(Spacer(1,25));p('Daniel Felipe Chica Giraldo\nErick Noel Delgado Serna','H2');p('Revisión local: 17 de noviembre de 2026')
 story.append(Spacer(1,25))
 table(['Componente','Resultado'],[['Migración','9.460 filas en staging, 9.459 filas normalizadas y una fila auxiliar sin fecha conservada.'],['Conciliación','118 controles satisfactorios contra los datos y tablas dinámicas del Excel.'],['Repositorio',url]],[120,360])
 p('Los resultados principales del informe provienen del histórico real. Los datos sintéticos permanecen identificados como DEMO y no se mezclan con REAL.','Sm')
@@ -100,20 +103,22 @@ table(['Participación','Descripción'],[['1','Relación obligatoria del detalle
 page();h('6. Modelo relacional y normalización')
 p('Cada entidad tiene PK. El origen y la combinación (fuente_id,fila_fuente) son claves alternativas de registro. La PK de subcodigo_paro es (codigo,subcodigo); intervención usa (paro_id,persona_id) y producción_hora usa (registro_id,hora_relativa). Todas las FK tienen DELETE RESTRICT y UPDATE CASCADE.')
 sub('Primera forma normal')
-p('Las columnas de causas se convierten en filas de paro con valores individuales. Las participaciones se almacenan una por persona. Agregar una causa no exige una nueva columna ni una fórmula por máquina.')
+p('Las celdas numéricas de la tabla ancha ya pueden ser atómicas; el problema es la estructura repetida de causas y su mantenimiento. Las columnas de causas se convierten en filas de paro con la misma estructura. Las participaciones se almacenan una por persona. Agregar una causa no exige una nueva columna ni una fórmula por máquina.')
 sub('Segunda forma normal')
 p('La producción y los tiempos base dependen de la fila de registro, no de cada causa. Se separan de los detalles de paro. En intervención, el rol corresponde a la combinación paro/persona. En producción_hora, la cantidad depende del registro y del bloque horario completo.')
+p('Ejemplo didáctico: una fila S tiene 8 pacas, 60 minutos base y dos causas con 5 y 3 minutos. Si la relación intermedia tiene clave (fila,código), fila determina por sí sola las pacas y la base: existe dependencia parcial. La cabecera final conserva una sola vez las 8 pacas y los 60 minutos; paro conserva los dos detalles. La clave real de paro es id porque puede haber más de un detalle por causa.')
 sub('Tercera forma normal')
 p('Los nombres de máquina, turno, referencia y causa se almacenan en sus catálogos. Registro determina los identificadores, y esos identificadores determinan sus descripciones. Separarlos elimina dependencias transitivas y permite corregir una descripción una sola vez.')
 table(['Dependencia','Ubicación'],[['registro_id determina fecha, asignaciones y medidas','registro_produccion'],['codigo determina descripción','codigo_paro'],['(codigo,subcodigo) determina descripción local','subcodigo_paro'],['(paro,persona) determina rol','intervencion'],['(registro,hora) determina pacas','produccion_hora']],[290,190])
 p('El núcleo del negocio llega a 3FN. Staging conserva JSON de la fuente por trazabilidad y no pretende sustituir al modelo normalizado. Los reportes leen las tablas normalizadas. Mes, año y porcentajes se derivan de fecha y medidas base, sin almacenarse redundantemente.')
+p('Se declara una redundancia técnica deliberada: origen materializa huella, fuente y fila, además de la clave alternativa fuente/fila. Incidencia también conserva la procedencia cuando falta un registro operativo. La capa de staging y auditoría conserva el origen para conciliar y no se presenta como un modelo operativo sin redundancia. El desarrollo paso a paso está en docs/NORMALIZACION.md.')
 
 page();h('7. Diccionario de datos')
 p('INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque la fuente contiene 0,1 minuto. TEXT no impone longitud fija: los límites se controlan con CHECK. Fecha tiene 10 caracteres, horas 5 y código principal 2. Todas las FK usan DELETE RESTRICT y UPDATE CASCADE. Las restricciones de fila y triggers se incluyen en el anexo SQL.')
 for t in D:
  sub(t['name']+' · '+t['desc'])
  for x in t['columns']:
-  left=f"{x['name']}\n{x['type']} · NULL: {'Sí' if x['nullable'] else 'No'}\nDefault: {x['default']}"
+  left=f"{x['name']}\n{x['type']} · NULL: {'Sí' if x['nullable'] else 'No'}\nLongitud: {x['length']}\nDefault: {x['default']}"
   table(['Columna y almacenamiento','Negocio y restricciones'],[[left,x['business']+'\n'+x['constraints']]],[155,325])
 
 page();h('8. Implementación e integridad')
@@ -152,7 +157,7 @@ p('En enero-marzo de 2025, alimentación y aseo (16), limpieza por derrame (06) 
 page();h('12. Consultas y comprobaciones')
 table(['Consulta','Pregunta de negocio'],[[f'Q{i:02}',title] for i,(title,q) in enumerate(Q,1)],[55,425])
 p('El conjunto utiliza INNER JOIN y LEFT JOIN, agregaciones, GROUP BY, HAVING, subconsultas correlacionadas, NOT EXISTS, CTE y funciones de ventana. Los rangos son semiabiertos: fecha mayor o igual a desde y menor que hasta. Q01 usa meses completos y Q02 fija los períodos comparables.')
-p('Las pruebas rechazaron correctamente 17 casos inválidos. También comprobaron INSERT, UPDATE y DELETE válidos, duración decimal, integridad referencial y detalle horario de la demo. El constructor SQL único reconstruye la base y el script de sustentación no deja mutaciones. La carga revisada revierte ante una FK inválida y rechaza reimportaciones por origen repetido.')
+p('Las pruebas rechazaron correctamente 18 casos inválidos. También comprobaron INSERT, UPDATE y DELETE válidos, duración decimal, integridad referencial y detalle horario de la demo. El constructor SQL único reconstruye la base y el script de sustentación no deja mutaciones. La carga revisada revierte ante una FK inválida y rechaza reimportaciones por origen repetido.')
 
 page();h('13. Calidad, privacidad y límites')
 table(['Hallazgo','Casos','Tratamiento'],[['Horas cero','401','Conservar 0 y no dividir entre cero.'],['Paros mayores que la base de su fila','45','Conservar y marcar; no borrar tiempos.'],['Repeticiones originales','42','Conservar todas sus filas.'],['Código 18 ambiguo','8','Conservar minutos y bloquear nuevas capturas no aprobadas.'],['Pacas sin horas','1','Conservar pacas y horas NULL.'],['Auxiliar sin fecha','1','Conservar solo en staging.']],[235,55,190])
@@ -161,9 +166,9 @@ p('Los nombres se reemplazan por alias HMAC. La clave privada no se incluye en G
 p('No hay horarios de inicio y fin de cada falla, por lo que no se calculan MTBF ni MTTR. El detalle horario real no está persistido en las dos tablas históricas y no se inventó. Las capturas nuevas tienen estructura para registrar esos bloques, pero los indicadores históricos se limitan a las medidas disponibles.')
 
 page();h('14. Repositorio y sustentación')
-p('El repositorio entregado conserva commits de los cambios efectuados durante la preparación. El autor de esos commits es Codex Automation y las fechas son reales. No se atribuyen contribuciones personales a los integrantes. El historial demuestra la evolución automatizada del proyecto; por sí solo no acredita la participación personal de ambos estudiantes exigida por el enunciado.')
-p('El historial Git documenta la evolución del modelo, la extracción de fuentes, la implementación, la conciliación y la actualización de los resultados.')
-p('La verificación de GitHub reconstruye la base desde el JSONL seudonimizado, ejecuta restricciones y conciliación y genera este informe con el enlace real del repositorio. La ejecución remota se comprobará después de publicar; las verificaciones incluidas se ejecutaron localmente.')
+p('La revisión inicial del repositorio público al 17 de noviembre de 2026 encontró dos commits bajo la cuenta dan1elcg1raldo000. Las correcciones posteriores se identifican como preparación técnica automatizada de Codex. Ese trabajo no acredita contribuciones personales de ambos integrantes ni sustituye el requisito de evolución y participación del enunciado. No se reconstruyen autorías ni fechas ficticias.')
+p('La entrega incluye .gitignore, una regla .gitattributes para conservar el SHA-256 de la fuente JSONL y un flujo de verificación en .github/workflows/verificar.yml. La versión publicada debe comprobarse en GitHub contra la versión local que se muestra en la sustentación.')
+p('El flujo de GitHub Actions reconstruye y audita SQLite y genera el informe. Su estado se consulta en la sección Actions del repositorio; la existencia del archivo YAML no basta para afirmar que pasó. Las cinco verificaciones del proyecto se ejecutaron satisfactoriamente en este PC. DEMOSTRAR.cmd ejecuta una reconstrucción temporal y Q12 sin editar código.')
 sub('Reproducción')
 code('python scripts/reconstruir.py --salida base_nueva.sqlite\npython scripts/verificar.py base_nueva.sqlite\npython scripts/verificar_historico.py base_nueva.sqlite\npython scripts/verificar_carga.py base_nueva.sqlite\npython scripts/verificar_sql_completo.py')
 p('La base_proyecto.sqlite ya está construida y se abre directamente en DBeaver. sql/08_sustentacion.sql contiene consultas sin parámetros pendientes. El modelo editable y el PDF permiten explicar la normalización y las relaciones. La presentación resume el modelo, la migración y los resultados del histórico.')
@@ -195,6 +200,6 @@ def footer(canvas,doc):
 dest=P/'BDI_ProyectoFinal_Chica_Delgado.pdf'
 doc=SimpleDocTemplate(str(dest),pagesize=A4,leftMargin=48,rightMargin=48,topMargin=53,bottomMargin=59,title='Registro de producción y paros - Histórico XLSM',author='Daniel Felipe Chica Giraldo; Erick Noel Delgado Serna')
 doc.build(story,onFirstPage=footer,onLaterPages=footer)
-(P/'docs/INFORME.md').write_text('\n\n'.join(md),encoding='utf-8')
+(P/'docs/INFORME.md').write_text('\n\n'.join(md),encoding='utf-8',newline='\n')
 print(dest)
 

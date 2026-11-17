@@ -41129,6 +41129,9 @@ CREATE INDEX idx_intervencion_persona ON intervencion(persona_id);
 CREATE TRIGGER codigo_18_nueva_captura BEFORE INSERT ON paro
 WHEN NEW.codigo='18' AND (SELECT estado FROM registro_produccion WHERE id=NEW.registro_id)='CAPTURA'
 BEGIN SELECT RAISE(ABORT,'Código 18 pendiente de aprobación para nuevas capturas'); END;
+CREATE TRIGGER codigo_18_transicion_captura BEFORE UPDATE OF estado ON registro_produccion
+WHEN NEW.estado='CAPTURA' AND EXISTS(SELECT 1 FROM paro WHERE registro_id=OLD.id AND codigo='18')
+BEGIN SELECT RAISE(ABORT,'Código 18 pendiente de aprobación para nuevas capturas'); END;
 CREATE TRIGGER validar_paro_insert BEFORE INSERT ON paro
 WHEN (SELECT estado FROM registro_produccion WHERE id=NEW.registro_id)='CAPTURA' AND NEW.minutos+COALESCE((SELECT SUM(minutos) FROM paro WHERE registro_id=NEW.registro_id),0)
  > (SELECT minutos_base FROM registro_produccion WHERE id=NEW.registro_id)

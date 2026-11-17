@@ -85,6 +85,11 @@
     "detalle": "UNIQUE constraint failed: staging_xlsm.fuente_id, staging_xlsm.fila"
   },
   {
+    "prueba": "Código 18 al convertir histórico en captura",
+    "resultado": "RECHAZO_CORRECTO",
+    "detalle": "Código 18 pendiente de aprobación para nuevas capturas"
+  },
+  {
     "prueba": "INSERT, UPDATE, DELETE válidos y duración decimal",
     "resultado": "OK"
   },

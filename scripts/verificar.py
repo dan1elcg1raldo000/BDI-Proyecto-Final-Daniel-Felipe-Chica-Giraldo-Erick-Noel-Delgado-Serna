@@ -29,6 +29,13 @@ cases=[
  ('Código 18 sin aprobar en modificación',"UPDATE paro SET codigo='18',subcodigo=NULL WHERE id=1"),
  ('Fuente y fila repetidas',"INSERT INTO staging_xlsm SELECT * FROM staging_xlsm LIMIT 1")]
 for name,sql in cases:rejected(name,sql)
+c.execute('SAVEPOINT transicion_codigo_18')
+try:
+ c.execute("UPDATE registro_produccion SET estado='HISTORICO' WHERE id=1")
+ c.execute("INSERT INTO paro(registro_id,codigo,minutos) VALUES(1,'18',0.1)")
+ rejected('Código 18 al convertir histórico en captura',"UPDATE registro_produccion SET estado='CAPTURA' WHERE id=1")
+finally:
+ c.execute('ROLLBACK TO transicion_codigo_18');c.execute('RELEASE transicion_codigo_18')
 c.execute('SAVEPOINT valido')
 c.execute("INSERT INTO persona(id,seudonimo) VALUES(999999,'DEMO-PRUEBA')")
 c.execute('UPDATE persona SET activa=0 WHERE id=999999')
@@ -45,5 +52,5 @@ for i,(title,q) in enumerate(queries,1):
  cur=c.execute(q,{'clase':'DEMO','desde':'2025-01-01','hasta':'2025-04-01'});data=cur.fetchall()
  results.append({'consulta':f'Q{i:02}','filas':len(data),'resultado':'OK'})
 (root/'evidencias/validacion.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
-print(json.dumps({'rechazos_correctos':len(cases),'consultas':len(queries),'integridad':'OK'},ensure_ascii=False,indent=2))
+print(json.dumps({'rechazos_correctos':len(cases)+1,'consultas':len(queries),'integridad':'OK'},ensure_ascii=False,indent=2))
 c.close()

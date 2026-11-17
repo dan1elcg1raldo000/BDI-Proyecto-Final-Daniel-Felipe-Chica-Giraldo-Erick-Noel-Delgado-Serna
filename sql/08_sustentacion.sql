@@ -1,6 +1,7 @@
 PRAGMA foreign_keys=ON;
 
 PRAGMA integrity_check;
+PRAGMA foreign_key_check;
 
 -- Q01: Productividad temporal por máquina y mes
 SELECT m.nombre,v.mes,ROUND(v.productividad_pct,4) productividad_pct,v.minutos_base,v.minutos_paro,v.pacas FROM v_productividad_mensual v JOIN maquina m ON m.id=v.maquina_id WHERE v.clase='REAL' AND v.mes>=substr('2025-01-01',1,7) AND v.mes<substr('2025-04-01',1,7) ORDER BY m.id,v.mes;

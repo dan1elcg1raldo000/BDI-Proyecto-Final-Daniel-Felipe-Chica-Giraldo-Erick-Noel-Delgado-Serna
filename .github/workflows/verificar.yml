@@ -1,0 +1,29 @@
+name: Verificar base SQLite
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  auditoria:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Reconstruir y auditar
+        run: |
+          python scripts/reconstruir.py --salida base_nueva.sqlite
+          python scripts/verificar.py base_nueva.sqlite
+          python scripts/verificar_historico.py base_nueva.sqlite
+          python scripts/verificar_carga.py base_nueva.sqlite
+          python scripts/verificar_sql_completo.py
+      - name: Generar informe
+        run: |
+          python -m pip install -r requirements-informe.txt
+          python scripts/generar_informe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: informe-y-evidencias
+          path: |
+            BDI_ProyectoFinal_Chica_Delgado.pdf
+            evidencias/
