@@ -1,0 +1,92 @@
+{
+  "estado": "OK",
+  "motor": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit",
+  "rechazos_correctos": 18,
+  "dml_reversible": "OK",
+  "resumen": {
+    "historicos": 9459,
+    "demo": 72,
+    "staging": 9460,
+    "tablas": 14,
+    "vistas": 4,
+    "triggers": 8,
+    "fk_no_validadas": 0,
+    "pacas_principal": 378778.0,
+    "minutos_base_principal": 2283801.0,
+    "minutos_paro_principal": 506979.1
+  },
+  "consultas": [
+    {
+      "consulta": "Q01",
+      "titulo": "Productividad temporal por máquina y mes",
+      "filas": 12,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q02",
+      "titulo": "Comparativo enero-marzo 2024 y 2025",
+      "filas": 4,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q03",
+      "titulo": "Participación de códigos de paro y porcentaje sobre tiempo base",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q04",
+      "titulo": "Detalle por subcódigo 01, 03 y 05",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q05",
+      "titulo": "Comparación de turnos dentro de cada máquina",
+      "filas": 13,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q06",
+      "titulo": "Causas que acumulan más de 100 minutos",
+      "filas": 16,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q07",
+      "titulo": "Máquinas por debajo de la productividad del conjunto",
+      "filas": 2,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q08",
+      "titulo": "Máquinas sin filas en el período",
+      "filas": 0,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q09",
+      "titulo": "Participación de agentes en ajustes operativos",
+      "filas": 3,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q10",
+      "titulo": "Incidencias de calidad del histórico por tipo",
+      "filas": 2,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q11",
+      "titulo": "Pareto de causas de paro",
+      "filas": 18,
+      "resultado": "OK"
+    },
+    {
+      "consulta": "Q12",
+      "titulo": "Conteos y totales por fuente sin mezclar las hojas",
+      "filas": 4,
+      "resultado": "OK"
+    }
+  ]
+}

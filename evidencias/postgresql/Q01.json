@@ -1,0 +1,98 @@
+[
+  {
+    "nombre": "Vinilos_1",
+    "mes": "2025-01",
+    "productividad_pct": 74.672,
+    "minutos_base": 18900.0,
+    "minutos_paro": 4787.0,
+    "pacas": 2861.0
+  },
+  {
+    "nombre": "Vinilos_1",
+    "mes": "2025-02",
+    "productividad_pct": 78.2565,
+    "minutos_base": 16920.0,
+    "minutos_paro": 3679.0,
+    "pacas": 2337.0
+  },
+  {
+    "nombre": "Vinilos_1",
+    "mes": "2025-03",
+    "productividad_pct": 58.6822,
+    "minutos_base": 5160.0,
+    "minutos_paro": 2132.0,
+    "pacas": 380.0
+  },
+  {
+    "nombre": "Vinilos_2",
+    "mes": "2025-01",
+    "productividad_pct": 56.8849,
+    "minutos_base": 10080.0,
+    "minutos_paro": 4346.0,
+    "pacas": 4843.0
+  },
+  {
+    "nombre": "Vinilos_2",
+    "mes": "2025-02",
+    "productividad_pct": 66.1333,
+    "minutos_base": 3750.0,
+    "minutos_paro": 1270.0,
+    "pacas": 2126.0
+  },
+  {
+    "nombre": "Vinilos_2",
+    "mes": "2025-03",
+    "productividad_pct": 50.9237,
+    "minutos_base": 4980.0,
+    "minutos_paro": 2444.0,
+    "pacas": 2121.0
+  },
+  {
+    "nombre": "Vinilos_3",
+    "mes": "2025-01",
+    "productividad_pct": 68.7944,
+    "minutos_base": 23640.0,
+    "minutos_paro": 7377.0,
+    "pacas": 2044.0
+  },
+  {
+    "nombre": "Vinilos_3",
+    "mes": "2025-02",
+    "productividad_pct": 68.9676,
+    "minutos_base": 13560.0,
+    "minutos_paro": 4208.0,
+    "pacas": 1242.0
+  },
+  {
+    "nombre": "Vinilos_3",
+    "mes": "2025-03",
+    "productividad_pct": 63.911,
+    "minutos_base": 12810.0,
+    "minutos_paro": 4623.0,
+    "pacas": 984.0
+  },
+  {
+    "nombre": "Vinilos_4",
+    "mes": "2025-01",
+    "productividad_pct": 72.97,
+    "minutos_base": 33300.0,
+    "minutos_paro": 9001.0,
+    "pacas": 3580.0
+  },
+  {
+    "nombre": "Vinilos_4",
+    "mes": "2025-02",
+    "productividad_pct": 74.8804,
+    "minutos_base": 24240.0,
+    "minutos_paro": 6089.0,
+    "pacas": 2858.0
+  },
+  {
+    "nombre": "Vinilos_4",
+    "mes": "2025-03",
+    "productividad_pct": 71.1905,
+    "minutos_base": 1680.0,
+    "minutos_paro": 484.0,
+    "pacas": 120.0
+  }
+]

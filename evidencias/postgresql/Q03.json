@@ -1,0 +1,128 @@
+[
+  {
+    "codigo": "16",
+    "descripcion": "Alimentación y aseo de la zona de trabajo y la máquina",
+    "minutos": 15520.0,
+    "pct_del_paro": 30.7692,
+    "pct_base": 9.1823
+  },
+  {
+    "codigo": "06",
+    "descripcion": "Limpieza por derrame operativo",
+    "minutos": 13682.0,
+    "pct_del_paro": 27.1253,
+    "pct_base": 8.0949
+  },
+  {
+    "codigo": "05",
+    "descripcion": "Ajuste operativo",
+    "minutos": 11107.0,
+    "pct_del_paro": 22.0202,
+    "pct_base": 6.5714
+  },
+  {
+    "codigo": "07",
+    "descripcion": "Alistamiento de máquina / Cambio de referencia",
+    "minutos": 2770.0,
+    "pct_del_paro": 5.4917,
+    "pct_base": 1.6389
+  },
+  {
+    "codigo": "17",
+    "descripcion": "Pausa activa",
+    "minutos": 1182.0,
+    "pct_del_paro": 2.3434,
+    "pct_base": 0.6993
+  },
+  {
+    "codigo": "14",
+    "descripcion": "Falta de materia prima",
+    "minutos": 1079.0,
+    "pct_del_paro": 2.1392,
+    "pct_base": 0.6384
+  },
+  {
+    "codigo": "09",
+    "descripcion": "Falta de operario",
+    "minutos": 927.0,
+    "pct_del_paro": 1.8378,
+    "pct_base": 0.5485
+  },
+  {
+    "codigo": "15",
+    "descripcion": "Cambio de insumos (Roscadores, O'ring, Etiquetas)",
+    "minutos": 911.0,
+    "pct_del_paro": 1.8061,
+    "pct_base": 0.539
+  },
+  {
+    "codigo": "10",
+    "descripcion": "Paro por ventaja/evacuación",
+    "minutos": 885.0,
+    "pct_del_paro": 1.7546,
+    "pct_base": 0.5236
+  },
+  {
+    "codigo": "08",
+    "descripcion": "Capacitación / Reunión",
+    "minutos": 645.0,
+    "pct_del_paro": 1.2787,
+    "pct_base": 0.3816
+  },
+  {
+    "codigo": "18",
+    "descripcion": "Código 18 histórico: denominación contradictoria entre catálogos",
+    "minutos": 412.0,
+    "pct_del_paro": 0.8168,
+    "pct_base": 0.2438
+  },
+  {
+    "codigo": "02",
+    "descripcion": "Espera de soporte de mantenimiento",
+    "minutos": 334.0,
+    "pct_del_paro": 0.6622,
+    "pct_base": 0.1976
+  },
+  {
+    "codigo": "01",
+    "descripcion": "Falla del sistema electromecánico y/o de control",
+    "minutos": 325.0,
+    "pct_del_paro": 0.6443,
+    "pct_base": 0.1923
+  },
+  {
+    "codigo": "12",
+    "descripcion": "Materia prima defectuosa",
+    "minutos": 225.0,
+    "pct_del_paro": 0.4461,
+    "pct_base": 0.1331
+  },
+  {
+    "codigo": "04",
+    "descripcion": "Mantenimiento preventivo",
+    "minutos": 210.0,
+    "pct_del_paro": 0.4163,
+    "pct_base": 0.1242
+  },
+  {
+    "codigo": "11",
+    "descripcion": "Reproceso",
+    "minutos": 123.0,
+    "pct_del_paro": 0.2439,
+    "pct_base": 0.0728
+  },
+  {
+    "codigo": "03",
+    "descripcion": "Novedad en los sistemas de potencia (Aire, energía, vapor)",
+    "minutos": 100.0,
+    "pct_del_paro": 0.1983,
+    "pct_base": 0.0592
+  },
+  {
+    "codigo": "13",
+    "descripcion": "En espera por el aval del laboratorio de microbiología",
+    "minutos": 3.0,
+    "pct_del_paro": 0.0059,
+    "pct_base": 0.0018
+  }
+]

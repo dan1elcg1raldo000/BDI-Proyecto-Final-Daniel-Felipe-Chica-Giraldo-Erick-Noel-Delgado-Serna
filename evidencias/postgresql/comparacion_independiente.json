@@ -1,0 +1,83 @@
+{
+  "estado": "OK",
+  "tablas_comparadas": {
+    "codigo_paro": 18,
+    "fuente": 4,
+    "incidencia": 498,
+    "intervencion": 2795,
+    "maquina": 4,
+    "paro": 17944,
+    "persona": 51,
+    "produccion_hora": 576,
+    "referencia": 61,
+    "registro_produccion": 9531,
+    "staging_pdf": 0,
+    "staging_xlsm": 9460,
+    "subcodigo_paro": 68,
+    "turno": 6
+  },
+  "consultas_comparadas": [
+    {
+      "consulta": "Q01",
+      "filas": 12,
+      "coincide": true
+    },
+    {
+      "consulta": "Q02",
+      "filas": 4,
+      "coincide": true
+    },
+    {
+      "consulta": "Q03",
+      "filas": 18,
+      "coincide": true
+    },
+    {
+      "consulta": "Q04",
+      "filas": 18,
+      "coincide": true
+    },
+    {
+      "consulta": "Q05",
+      "filas": 13,
+      "coincide": true
+    },
+    {
+      "consulta": "Q06",
+      "filas": 16,
+      "coincide": true
+    },
+    {
+      "consulta": "Q07",
+      "filas": 2,
+      "coincide": true
+    },
+    {
+      "consulta": "Q08",
+      "filas": 0,
+      "coincide": true
+    },
+    {
+      "consulta": "Q09",
+      "filas": 3,
+      "coincide": true
+    },
+    {
+      "consulta": "Q10",
+      "filas": 2,
+      "coincide": true
+    },
+    {
+      "consulta": "Q11",
+      "filas": 18,
+      "coincide": true
+    },
+    {
+      "consulta": "Q12",
+      "filas": 4,
+      "coincide": true
+    }
+  ],
+  "exclusion": "creado_en: instante propio de cada ejecución",
+  "precision_numerica": "Comparación a seis decimales; JSON estructurado completo."
+}

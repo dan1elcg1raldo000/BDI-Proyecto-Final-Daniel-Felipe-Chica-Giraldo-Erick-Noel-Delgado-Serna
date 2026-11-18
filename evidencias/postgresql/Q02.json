@@ -1,0 +1,34 @@
+[
+  {
+    "nombre": "Vinilos_1",
+    "pct_2024": 64.7753,
+    "pct_2025": 74.1386,
+    "diferencia_pp": 9.3634,
+    "minutos_2024": 39600.0,
+    "minutos_2025": 40980.0
+  },
+  {
+    "nombre": "Vinilos_2",
+    "pct_2024": 60.3966,
+    "pct_2025": 57.1505,
+    "diferencia_pp": -3.2462,
+    "minutos_2024": 23700.0,
+    "minutos_2025": 18810.0
+  },
+  {
+    "nombre": "Vinilos_3",
+    "pct_2024": 75.7527,
+    "pct_2025": 67.5905,
+    "diferencia_pp": -8.1622,
+    "minutos_2024": 61380.0,
+    "minutos_2025": 50010.0
+  },
+  {
+    "nombre": "Vinilos_4",
+    "pct_2024": 78.0984,
+    "pct_2025": 73.7015,
+    "diferencia_pp": -4.397,
+    "minutos_2024": 67680.0,
+    "minutos_2025": 59220.0
+  }
+]

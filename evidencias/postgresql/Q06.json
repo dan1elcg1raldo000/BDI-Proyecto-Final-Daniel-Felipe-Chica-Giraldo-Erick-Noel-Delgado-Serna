@@ -1,0 +1,82 @@
+[
+  {
+    "codigo": "16",
+    "causa": "Alimentación y aseo de la zona de trabajo y la máquina",
+    "minutos": 15520.0
+  },
+  {
+    "codigo": "06",
+    "causa": "Limpieza por derrame operativo",
+    "minutos": 13682.0
+  },
+  {
+    "codigo": "05",
+    "causa": "Ajuste operativo",
+    "minutos": 11107.0
+  },
+  {
+    "codigo": "07",
+    "causa": "Alistamiento de máquina / Cambio de referencia",
+    "minutos": 2770.0
+  },
+  {
+    "codigo": "17",
+    "causa": "Pausa activa",
+    "minutos": 1182.0
+  },
+  {
+    "codigo": "14",
+    "causa": "Falta de materia prima",
+    "minutos": 1079.0
+  },
+  {
+    "codigo": "09",
+    "causa": "Falta de operario",
+    "minutos": 927.0
+  },
+  {
+    "codigo": "15",
+    "causa": "Cambio de insumos (Roscadores, O'ring, Etiquetas)",
+    "minutos": 911.0
+  },
+  {
+    "codigo": "10",
+    "causa": "Paro por ventaja/evacuación",
+    "minutos": 885.0
+  },
+  {
+    "codigo": "08",
+    "causa": "Capacitación / Reunión",
+    "minutos": 645.0
+  },
+  {
+    "codigo": "18",
+    "causa": "Código 18 histórico: denominación contradictoria entre catálogos",
+    "minutos": 412.0
+  },
+  {
+    "codigo": "02",
+    "causa": "Espera de soporte de mantenimiento",
+    "minutos": 334.0
+  },
+  {
+    "codigo": "01",
+    "causa": "Falla del sistema electromecánico y/o de control",
+    "minutos": 325.0
+  },
+  {
+    "codigo": "12",
+    "causa": "Materia prima defectuosa",
+    "minutos": 225.0
+  },
+  {
+    "codigo": "04",
+    "causa": "Mantenimiento preventivo",
+    "minutos": 210.0
+  },
+  {
+    "codigo": "11",
+    "causa": "Reproceso",
+    "minutos": 123.0
+  }
+]

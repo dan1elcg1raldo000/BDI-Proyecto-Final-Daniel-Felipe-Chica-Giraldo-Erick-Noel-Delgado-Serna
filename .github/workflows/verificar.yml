@@ -1,22 +1,39 @@
-name: Verificar base SQLite
+name: Verificar proyecto PostgreSQL
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
   auditoria:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: bdi_ci
+          POSTGRES_PASSWORD: bdi_ci_temporal
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: bdi_ci
+      PGPASSWORD: bdi_ci_temporal
+      PGDATABASE: bdi_proyecto_ci
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Reconstruir y auditar
+      - name: Reconstruir y auditar PostgreSQL
         run: |
-          python scripts/reconstruir.py --salida base_nueva.sqlite
-          python scripts/verificar.py base_nueva.sqlite
-          python scripts/verificar_historico.py base_nueva.sqlite
-          python scripts/verificar_carga.py base_nueva.sqlite
-          python scripts/verificar_sql_completo.py
+          python postgresql/reconstruir.py --crear-base
+          python postgresql/verificar.py
       - name: Generar informe
         run: |
           python -m pip install -r requirements-informe.txt

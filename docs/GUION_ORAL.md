@@ -4,7 +4,7 @@ Recorrido de unos 10-12 minutos, ajustable al tiempo que conceda el profesor. El
 
 ## 1. Daniel: presentación y objetivo
 
-«Somos Daniel Felipe Chica Giraldo y Erick Noel Delgado Serna. El proyecto transforma el histórico de producción y paros de cuatro líneas de vinilos en una base relacional SQLite. La finalidad es conservar la información de origen y reproducir indicadores con consultas verificables.»
+«Somos Daniel Felipe Chica Giraldo y Erick Noel Delgado Serna. El proyecto transforma el histórico de producción y paros de cuatro líneas de vinilos en una base relacional PostgreSQL. La finalidad es conservar la información de origen y reproducir indicadores con consultas verificables.»
 
 Mostrar la portada del PDF y el enlace al repositorio.
 
@@ -26,7 +26,7 @@ Mostrar `docs/MODELO.md` y el ejemplo de `docs/NORMALIZACION.md`.
 
 «Las PK identifican filas. Las FK impiden referencias inexistentes. La pareja código/subcódigo forma una FK compuesta porque una subcausa solo es válida dentro de su causa. RESTRICT protege los registros históricos frente a borrados de sus catálogos; CASCADE propaga cambios de identificador. UNIQUE protege el origen de una reimportación; CHECK, NOT NULL y DEFAULT completan las reglas de fila.»
 
-«Las FK se activan por conexión con PRAGMA foreign_keys=ON. Abrir el mismo archivo desde otra herramienta no garantiza que esa otra conexión ya las tenga activas.»
+«PostgreSQL aplica las llaves foráneas declaradas. Las restricciones se comprueban en el servidor, no se activan con PRAGMA. La clave compuesta exige que código y subcódigo pertenezcan a la misma causa.»
 
 ## 5. Daniel: triggers
 
@@ -38,7 +38,7 @@ Transición: «Erick explicará cómo se conservan y verifican los datos al carg
 
 ## 6. Erick: ETL y protección de personas
 
-«La extracción opcional lee valores guardados del XLSM con openpyxl, sin ejecutar VBA. Los nombres se sustituyen por alias HMAC con una clave privada que no se publica. La fuente pública es un JSONL seudonimizado. La reconstrucción habitual usa ese JSONL y el módulo sqlite3 de Python; no necesita el archivo privado ni dependencias adicionales.»
+«La extracción opcional lee valores guardados del XLSM con openpyxl, sin ejecutar VBA. Los nombres se sustituyen por alias HMAC con una clave privada que no se publica. La fuente pública es un JSONL seudonimizado. La entrega PostgreSQL incluye un SQL completo construido desde ese JSONL. Para regenerarlo se usa un área temporal SQLite con Python estándar; la carga final, las restricciones y las consultas se ejecutan en PostgreSQL. No se necesita el archivo privado ni ejecutar macros.»
 
 «Cada fila conserva fuente y número original. Todas pasan por staging antes de poblar las tablas operativas. Los minutos se cargan una sola vez; no se suman de nuevo las columnas convertidas a horas.»
 
@@ -50,11 +50,9 @@ Transición: «Erick explicará cómo se conservan y verifican los datos al carg
 
 ## 8. Erick: demostración reproducible
 
-Ejecutar `DEMOSTRAR.cmd` con doble clic. No requiere editar código. El script crea una base temporal nueva, comprueba ambos PRAGMA y ejecuta Q12. Al terminar muestra el resultado y limpia la copia temporal. La base entregada no cambia.
+En DBeaver, ejecutar por bloques `postgresql/07_sustentacion.sql`. Para demostrar la reconstrucción, usar una base PostgreSQL nueva y ejecutar `postgresql/00_PROYECTO_COMPLETO.sql`. La carga no modifica otra base ya existente.
 
-«Aquí se reconstruyó la base con los archivos del repositorio. integrity_check devuelve ok; foreign_key_check no devuelve violaciones. Q12 separa las fuentes y permite comprobar las cifras sin mezclar la demostración.»
-
-Volver a DBeaver, donde quedan la base final y el script de consultas.
+«Aquí la base se reconstruyó en PostgreSQL con los archivos del repositorio. El catálogo muestra las tablas, vistas y restricciones; las FK están validadas. Q12 separa las fuentes y permite comprobar las cifras sin mezclar la demostración.»
 
 ## 9. Erick: vistas y consultas
 

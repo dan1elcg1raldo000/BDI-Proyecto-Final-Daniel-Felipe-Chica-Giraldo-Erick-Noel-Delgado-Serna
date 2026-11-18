@@ -10,7 +10,7 @@ flowchart TD
  D --> E[Restricciones y triggers en CAPTURA]
  E --> F[Erick: extracción y staging]
  F --> G[Carga y conciliación]
- G --> H[DBeaver: PRAGMA y Q12 en vivo]
+ G --> H[DBeaver: PostgreSQL y Q12 en vivo]
  H --> I[Q01-Q12: indicadores y límites]
  I --> J[Cierre conjunto y preguntas]
 ```
@@ -21,7 +21,7 @@ flowchart TD
 flowchart TD
  X[XLSM privado: lectura sin VBA] -->|Extracción opcional con openpyxl| P[Alias HMAC; clave privada fuera de Git]
  P --> J[JSONL seudonimizado público]
- J -->|Reconstrucción con Python estándar| S[Staging: 9460 filas]
+ J -->|Transformación y generación SQL con Python| S[Staging: 9460 filas]
  C[Esquema y catálogos SQL] --> S
  S --> N[Histórico normalizado: 9459 filas]
  S --> I[Una fila sin fecha: staging e incidencia]
@@ -29,7 +29,7 @@ flowchart TD
  V --> Q[Consultas Q01-Q12]
  Q --> A[118 controles históricos e integridad]
  N --> R[CAPTURA: controles de paros, horarios y código 18]
- SQL[Constructor SQL completo] --> O[Alternativa: base vacía en SQLite]
+ SQL[Constructor SQL PostgreSQL completo] --> O[Base vacía en PostgreSQL]
  O --> V
 ```
 

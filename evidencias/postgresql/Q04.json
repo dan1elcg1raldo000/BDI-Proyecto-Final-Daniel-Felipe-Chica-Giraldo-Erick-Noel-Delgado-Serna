@@ -1,0 +1,128 @@
+[
+  {
+    "codigo": "01",
+    "subcodigo": "1.2.B",
+    "subcausa": "Ajuste de sensor",
+    "minutos": 240.0,
+    "pct_dentro_codigo": 73.8462
+  },
+  {
+    "codigo": "01",
+    "subcodigo": "SIN_SUBCODIGO",
+    "subcausa": "Sin especificar",
+    "minutos": 75.0,
+    "pct_dentro_codigo": 23.0769
+  },
+  {
+    "codigo": "01",
+    "subcodigo": "1.1.B",
+    "subcausa": "Motor",
+    "minutos": 10.0,
+    "pct_dentro_codigo": 3.0769
+  },
+  {
+    "codigo": "03",
+    "subcodigo": "3.3",
+    "subcausa": "Falla en la red neumática o el compresor",
+    "minutos": 55.0,
+    "pct_dentro_codigo": 55.0
+  },
+  {
+    "codigo": "03",
+    "subcodigo": "SIN_SUBCODIGO",
+    "subcausa": "Sin especificar",
+    "minutos": 40.0,
+    "pct_dentro_codigo": 40.0
+  },
+  {
+    "codigo": "03",
+    "subcodigo": "3.2",
+    "subcausa": "Fallo en la red pública",
+    "minutos": 5.0,
+    "pct_dentro_codigo": 5.0
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.2",
+    "subcausa": "Sistema de dosificación de pintura, frontal posterior",
+    "minutos": 2923.0,
+    "pct_dentro_codigo": 26.3167
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.5",
+    "subcausa": "Transfer y pisador de tapa",
+    "minutos": 2162.0,
+    "pct_dentro_codigo": 19.4652
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.8",
+    "subcausa": "Banda de sujeción y roscadores",
+    "minutos": 1586.0,
+    "pct_dentro_codigo": 14.2793
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.3",
+    "subcausa": "Banda transportadora de entrada",
+    "minutos": 997.0,
+    "pct_dentro_codigo": 8.9763
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.7",
+    "subcausa": "Video Jet",
+    "minutos": 904.0,
+    "pct_dentro_codigo": 8.139
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.11",
+    "subcausa": "Lavado de boquilla",
+    "minutos": 891.0,
+    "pct_dentro_codigo": 8.022
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.10",
+    "subcausa": "Purga de color",
+    "minutos": 733.0,
+    "pct_dentro_codigo": 6.5994
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.9",
+    "subcausa": "Sistema de etiquetado",
+    "minutos": 310.0,
+    "pct_dentro_codigo": 2.791
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.1",
+    "subcausa": "Sistema alimentador de envases",
+    "minutos": 206.0,
+    "pct_dentro_codigo": 1.8547
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.6",
+    "subcausa": "Sistema alimentador de tapa y tobogan",
+    "minutos": 190.0,
+    "pct_dentro_codigo": 1.7106
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "5.4",
+    "subcausa": "Banda transportadora de salida",
+    "minutos": 138.0,
+    "pct_dentro_codigo": 1.2425
+  },
+  {
+    "codigo": "05",
+    "subcodigo": "SIN_SUBCODIGO",
+    "subcausa": "Sin especificar",
+    "minutos": 67.0,
+    "pct_dentro_codigo": 0.6032
+  }
+]

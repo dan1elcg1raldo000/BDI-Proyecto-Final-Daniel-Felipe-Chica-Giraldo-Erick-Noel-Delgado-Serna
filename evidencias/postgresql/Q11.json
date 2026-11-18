@@ -1,0 +1,92 @@
+[
+  {
+    "codigo": "16",
+    "minutos": 15520.0,
+    "acumulado_pct": 30.7692
+  },
+  {
+    "codigo": "06",
+    "minutos": 13682.0,
+    "acumulado_pct": 57.8945
+  },
+  {
+    "codigo": "05",
+    "minutos": 11107.0,
+    "acumulado_pct": 79.9148
+  },
+  {
+    "codigo": "07",
+    "minutos": 2770.0,
+    "acumulado_pct": 85.4064
+  },
+  {
+    "codigo": "17",
+    "minutos": 1182.0,
+    "acumulado_pct": 87.7498
+  },
+  {
+    "codigo": "14",
+    "minutos": 1079.0,
+    "acumulado_pct": 89.889
+  },
+  {
+    "codigo": "09",
+    "minutos": 927.0,
+    "acumulado_pct": 91.7268
+  },
+  {
+    "codigo": "15",
+    "minutos": 911.0,
+    "acumulado_pct": 93.5329
+  },
+  {
+    "codigo": "10",
+    "minutos": 885.0,
+    "acumulado_pct": 95.2875
+  },
+  {
+    "codigo": "08",
+    "minutos": 645.0,
+    "acumulado_pct": 96.5662
+  },
+  {
+    "codigo": "18",
+    "minutos": 412.0,
+    "acumulado_pct": 97.383
+  },
+  {
+    "codigo": "02",
+    "minutos": 334.0,
+    "acumulado_pct": 98.0452
+  },
+  {
+    "codigo": "01",
+    "minutos": 325.0,
+    "acumulado_pct": 98.6895
+  },
+  {
+    "codigo": "12",
+    "minutos": 225.0,
+    "acumulado_pct": 99.1356
+  },
+  {
+    "codigo": "04",
+    "minutos": 210.0,
+    "acumulado_pct": 99.5519
+  },
+  {
+    "codigo": "11",
+    "minutos": 123.0,
+    "acumulado_pct": 99.7958
+  },
+  {
+    "codigo": "03",
+    "minutos": 100.0,
+    "acumulado_pct": 99.9941
+  },
+  {
+    "codigo": "13",
+    "minutos": 3.0,
+    "acumulado_pct": 100.0
+  }
+]

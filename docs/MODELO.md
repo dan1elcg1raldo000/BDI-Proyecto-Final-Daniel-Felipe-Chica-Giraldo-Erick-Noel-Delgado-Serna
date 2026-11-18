@@ -1,6 +1,6 @@
-# Modelo relacional en pata de gallo
+# Modelo relacional PostgreSQL en pata de gallo
 
-Siete catálogos, cuatro tablas operativas y tres tablas de soporte. Las tablas de staging conservan la trazabilidad de la fuente. STAGING_PDF es un legado independiente que no alimenta los indicadores actuales.
+Siete catálogos, cuatro tablas operativas y tres de apoyo. Staging mantiene trazabilidad y el modelo operativo llega a 3FN.
 
 ```mermaid
 erDiagram
@@ -57,28 +57,28 @@ erDiagram
     }
     REGISTRO_PRODUCCION {
         INTEGER id PK
-        TEXT fecha
+        DATE fecha
         INTEGER maquina_id
         INTEGER turno_id
         INTEGER operario_id
         INTEGER referencia_id
-        REAL minutos_base
-        REAL meta_pacas_hora
-        REAL pacas_reales
+        NUMERIC minutos_base
+        NUMERIC meta_pacas_hora
+        NUMERIC pacas_reales
         TEXT origen
         TEXT clase
-        TEXT creado_en
+        TIMESTAMPTZ creado_en
         INTEGER fuente_id
         INTEGER fila_fuente
         TEXT estado
-        REAL minutos_sin_trabajar
+        NUMERIC minutos_sin_trabajar
     }
     PARO {
         INTEGER id PK
         INTEGER registro_id
         TEXT codigo
         TEXT subcodigo
-        REAL minutos
+        NUMERIC minutos
         TEXT observacion
         TEXT agente
     }
@@ -90,12 +90,12 @@ erDiagram
     PRODUCCION_HORA {
         INTEGER registro_id PK
         INTEGER hora_relativa PK
-        REAL pacas
+        NUMERIC pacas
     }
     STAGING_XLSM {
         INTEGER fuente_id PK
         INTEGER fila PK
-        TEXT contenido_json
+        JSONB contenido_json
     }
     INCIDENCIA {
         INTEGER id PK

@@ -1,0 +1,93 @@
+[
+  {
+    "maquina": "Vinilos_1",
+    "turno": "6am-2pm (Turno 1)",
+    "filas_fuente": 74,
+    "productividad_pct": 68.4636,
+    "minutos_base": 18420.0
+  },
+  {
+    "maquina": "Vinilos_1",
+    "turno": "2pm-10pm (Turno 2)",
+    "filas_fuente": 37,
+    "productividad_pct": 78.8435,
+    "minutos_base": 11760.0
+  },
+  {
+    "maquina": "Vinilos_1",
+    "turno": "10pm-6am (Turno 3)",
+    "filas_fuente": 29,
+    "productividad_pct": 78.6944,
+    "minutos_base": 10800.0
+  },
+  {
+    "maquina": "Vinilos_2",
+    "turno": "6am-2pm (Turno 1)",
+    "filas_fuente": 13,
+    "productividad_pct": 54.5556,
+    "minutos_base": 4500.0
+  },
+  {
+    "maquina": "Vinilos_2",
+    "turno": "2pm-10pm (Turno 2)",
+    "filas_fuente": 6,
+    "productividad_pct": 67.5532,
+    "minutos_base": 2820.0
+  },
+  {
+    "maquina": "Vinilos_2",
+    "turno": "6am-4:30pm",
+    "filas_fuente": 32,
+    "productividad_pct": 55.6136,
+    "minutos_base": 11490.0
+  },
+  {
+    "maquina": "Vinilos_3",
+    "turno": "6am-2pm (Turno 1)",
+    "filas_fuente": 71,
+    "productividad_pct": 67.5037,
+    "minutos_base": 20430.0
+  },
+  {
+    "maquina": "Vinilos_3",
+    "turno": "2pm-10pm (Turno 2)",
+    "filas_fuente": 56,
+    "productividad_pct": 70.7688,
+    "minutos_base": 19380.0
+  },
+  {
+    "maquina": "Vinilos_3",
+    "turno": "10pm-6am (Turno 3)",
+    "filas_fuente": 26,
+    "productividad_pct": 61.7829,
+    "minutos_base": 7740.0
+  },
+  {
+    "maquina": "Vinilos_3",
+    "turno": "6am-4:30pm",
+    "filas_fuente": 5,
+    "productividad_pct": 61.5447,
+    "minutos_base": 2460.0
+  },
+  {
+    "maquina": "Vinilos_4",
+    "turno": "6am-2pm (Turno 1)",
+    "filas_fuente": 74,
+    "productividad_pct": 71.5871,
+    "minutos_base": 21360.0
+  },
+  {
+    "maquina": "Vinilos_4",
+    "turno": "2pm-10pm (Turno 2)",
+    "filas_fuente": 67,
+    "productividad_pct": 74.0309,
+    "minutos_base": 21360.0
+  },
+  {
+    "maquina": "Vinilos_4",
+    "turno": "10pm-6am (Turno 3)",
+    "filas_fuente": 44,
+    "productividad_pct": 76.0121,
+    "minutos_base": 16500.0
+  }
+]

@@ -12,6 +12,8 @@ P=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else Path(__file__).resolve().p
 M=json.loads((P/'evidencias/inspeccion_xlsm.json').read_text(encoding='utf-8'))
 D=json.loads((P/'docs/diccionario.json').read_text(encoding='utf-8'))
 Q=json.loads((P/'datos/consultas.json').read_text(encoding='utf-8'))
+if (P/'postgresql/05_consultas.sql').exists():
+ Q=[(m[1],m[2].strip()) for m in re.finditer(r'-- Q\d{2}: ([^\n]+)\n(.*?)(?=\n-- Q\d{2}:|\Z)',(P/'postgresql/05_consultas.sql').read_text(encoding='utf-8'),re.S)]
 V=json.loads((P/'evidencias/conciliacion_historica.json').read_text(encoding='utf-8'))
 repo=os.getenv('GITHUB_REPOSITORY','')
 url='https://github.com/'+repo if re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repo) else 'https://github.com/dan1elcg1raldo000/BDI-Proyecto-Final-Daniel-Felipe-Chica-Giraldo-Erick-Noel-Delgado-Serna'
@@ -52,8 +54,8 @@ def csvrows(file):
 
 story.append(Spacer(1,65));p('BASES DE DATOS I · PROYECTO FINAL','H2')
 p('Registro de producción\ny paros de envasado','T')
-p('Vinilos y témperas · Migración del XLSM original','H2')
-story.append(Spacer(1,25));p('Daniel Felipe Chica Giraldo\nErick Noel Delgado Serna','H2');p('Revisión local: 17 de noviembre de 2026')
+p('PostgreSQL 18 · Vinilos y témperas · Migración del XLSM','H2')
+story.append(Spacer(1,25));p('Daniel Felipe Chica Giraldo\nErick Noel Delgado Serna','H2');p('Revisión PostgreSQL: 18 de noviembre de 2026')
 story.append(Spacer(1,25))
 table(['Componente','Resultado'],[['Migración','9.460 filas en staging, 9.459 filas normalizadas y una fila auxiliar sin fecha conservada.'],['Conciliación','118 controles satisfactorios contra los datos y tablas dinámicas del Excel.'],['Repositorio',url]],[120,360])
 p('Los resultados principales del informe provienen del histórico real. Los datos sintéticos permanecen identificados como DEMO y no se mezclan con REAL.','Sm')
@@ -61,7 +63,7 @@ page();h('1. Problema y propuesta')
 p('El archivo de Excel concentra la captura, el histórico y los indicadores. Las operarias diligencian el formato hora a hora, producción remite los formatos y mantenimiento los transcribe. Después se presentan resultados mensuales. Esta estructura dificulta seguir el origen de una cifra y modificar los catálogos sin afectar fórmulas.')
 p('Diseñamos una base relacional que separa catálogos, registros, causas de paro y participaciones. Cada fila conserva su hoja y número de origen. Las consultas calculan los indicadores sin depender de las macros del libro.')
 sub('Qué se implementó')
-p('La entrega incluye el esquema SQLite, catálogos, carga del histórico, cuatro vistas, nueve índices explícitos, doce consultas y pruebas de restricciones. El constructor SQL completo permite reproducir la base sin instalar bibliotecas de extracción. También se incluye el modelo editable, un informe PDF y una presentación de resultados.')
+p('La entrega principal usa PostgreSQL, como exige Classroom. Incluye el esquema, catálogos, carga del histórico, cuatro vistas, nueve índices explícitos, doce consultas y pruebas de restricciones. El constructor SQL completo permite reproducir la base sin instalar bibliotecas de extracción. También se incluye el modelo editable, un informe PDF y una presentación de resultados.')
 table(['Conjunto','Contenido'],[['Histórico principal','8.208 filas de Base De Datos. Alimenta los indicadores.'],['Histórico auxiliar','1.252 filas de Base de datos de Sub codigos; 1.251 con fecha se normalizan y una se conserva solo en staging.'],['Demostración','72 registros sintéticos independientes para probar restricciones y detalle horario.']],[140,340])
 p('No se exige una meta de pacas para calcular el indicador temporal original. Los datos históricos no contienen esa meta en su tabla principal; por eso el cumplimiento de una meta de volumen permanece desconocido en lugar de inventarse.')
 
@@ -114,7 +116,7 @@ p('El núcleo del negocio llega a 3FN. Staging conserva JSON de la fuente por tr
 p('Se declara una redundancia técnica deliberada: origen materializa huella, fuente y fila, además de la clave alternativa fuente/fila. Incidencia también conserva la procedencia cuando falta un registro operativo. La capa de staging y auditoría conserva el origen para conciliar y no se presenta como un modelo operativo sin redundancia. El desarrollo paso a paso está en docs/NORMALIZACION.md.')
 
 page();h('7. Diccionario de datos')
-p('INTEGER almacena enteros y REAL admite fracciones. Los minutos usan REAL porque la fuente contiene 0,1 minuto. TEXT no impone longitud fija: los límites se controlan con CHECK. Fecha tiene 10 caracteres, horas 5 y código principal 2. Todas las FK usan DELETE RESTRICT y UPDATE CASCADE. Las restricciones de fila y triggers se incluyen en el anexo SQL.')
+p('INTEGER almacena enteros de 32 bits. Los minutos y pacas usan NUMERIC para admitir fracciones. Fecha utiliza DATE, la auditoría TIMESTAMPTZ y staging JSONB. TEXT se limita con CHECK cuando hay una longitud de negocio, como horas de cinco caracteres y códigos de dos. Todas las FK usan DELETE RESTRICT y UPDATE CASCADE. Las restricciones de fila y triggers se incluyen en el anexo SQL.')
 for t in D:
  sub(t['name']+' · '+t['desc'])
  for x in t['columns']:
@@ -168,15 +170,15 @@ p('No hay horarios de inicio y fin de cada falla, por lo que no se calculan MTBF
 page();h('14. Repositorio y sustentación')
 p('La revisión inicial del repositorio público al 17 de noviembre de 2026 encontró dos commits bajo la cuenta dan1elcg1raldo000. Las correcciones posteriores se identifican como preparación técnica automatizada de Codex. Ese trabajo no acredita contribuciones personales de ambos integrantes ni sustituye el requisito de evolución y participación del enunciado. No se reconstruyen autorías ni fechas ficticias.')
 p('La entrega incluye .gitignore, una regla .gitattributes para conservar el SHA-256 de la fuente JSONL y un flujo de verificación en .github/workflows/verificar.yml. La versión publicada debe comprobarse en GitHub contra la versión local que se muestra en la sustentación.')
-p('El flujo de GitHub Actions reconstruye y audita SQLite y genera el informe. Su estado se consulta en la sección Actions del repositorio; la existencia del archivo YAML no basta para afirmar que pasó. Las cinco verificaciones del proyecto se ejecutaron satisfactoriamente en este PC. DEMOSTRAR.cmd ejecuta una reconstrucción temporal y Q12 sin editar código.')
+p('El proyecto dispone de verificación automatizada para PostgreSQL. Su estado debe comprobarse en Actions: la existencia del YAML no demuestra una ejecución correcta. En este PC se ejecutaron 18 rechazos correctos y las doce consultas en PostgreSQL 18.6. Las 14 tablas y los doce resultados coinciden con la referencia conciliada a seis decimales, excluyendo solo el instante creado_en. La versión SQLite previa queda como respaldo y transformación temporal, no como motor de entrega.')
 sub('Reproducción')
-code('python scripts/reconstruir.py --salida base_nueva.sqlite\npython scripts/verificar.py base_nueva.sqlite\npython scripts/verificar_historico.py base_nueva.sqlite\npython scripts/verificar_carga.py base_nueva.sqlite\npython scripts/verificar_sql_completo.py')
-p('La base_proyecto.sqlite ya está construida y se abre directamente en DBeaver. sql/08_sustentacion.sql contiene consultas sin parámetros pendientes. El modelo editable y el PDF permiten explicar la normalización y las relaciones. La presentación resume el modelo, la migración y los resultados del histórico.')
+code('python postgresql/reconstruir.py --crear-base\npython postgresql/verificar.py')
+p('En DBeaver se conecta a PostgreSQL y se ejecuta postgresql/00_PROYECTO_COMPLETO.sql en una base vacía. postgresql/05_consultas.sql incluye los valores de demostración. postgresql/07_sustentacion.sql reúne controles y DML por bloques. Las credenciales se configuran fuera de Git con variables PG*. La instancia local usa el puerto 55432. El modelo editable y este informe permiten revisar normalización y relaciones.')
 
 page();h('15. Fuentes y trazabilidad')
 p('SEGUIMIENTO TEMPERAS Y VINILOS Actividad.xlsm. Libro original entregado por el usuario. Fuentes principales: Base De Datos, A9:BF8217; Base de datos de Sub codigos, A8:S1260; catálogos y tablas dinámicas. Se revisaron metadatos de las 21 hojas y definiciones de ocho tablas dinámicas.')
 p('P-MTO-21-V1_Registro_paros_de_produccion_actividad.pdf. Se identifica internamente como P-MTO-22 V1, siete páginas, vigencia 14/05/2025. Campos y códigos en pp. 1-3; reportes en pp. 4-6.')
-p('Enunciado pegado por el usuario. Requisitos de diseño, normalización, implementación, consultas, privacidad, repositorio y sustentación. Parte de sus cantidades mínimas aparece omitida en el texto recibido; la entrega incluye 3FN, nueve índices, cuatro vistas y doce consultas.')
+p('Enunciado original revisado en Classroom el 18/11/2026: Taller 5, modalidad parejas, motor PostgreSQL o MySQL, DBeaver y GitHub. Se adaptó el motor de entrega a PostgreSQL. Algunas cantidades mínimas aparecen vacías en el texto visible de Classroom; se incluyen 3FN, nueve índices, cuatro vistas y doce consultas. La participación personal y el dominio oral de ambos siguen requiriendo evidencia propia.')
 sub('SHA-256 del XLSM utilizado');code(M['sha256_xlsm'])
 p('Los controles de cada hoja, fórmulas originales, resultados y diferencias están en evidencias/inspeccion_xlsm.json y evidencias/conciliacion_historica.json. La fuente pública es una derivación seudonimizada; su hash está registrado para verificar que la reconstrucción usa exactamente la misma extracción.')
 
@@ -187,10 +189,10 @@ for i,(title,q) in enumerate(Q,1):
  sub(f'Q{i:02}. {title}')
  code(re.sub(r'\s+(FROM|LEFT JOIN|JOIN|WHERE|GROUP BY|HAVING|ORDER BY|SELECT)\s+',lambda m:'\n'+m[1]+' ',q))
 page();h('Anexo B. Esquema y vistas')
-p('DDL del esquema ejecutado. Los datos completos se incluyen en sql/00_PROYECTO_COMPLETO.sql y la reconstrucción con JSONL está en scripts/reconstruir.py.')
-code((P/'sql/01_esquema.sql').read_text(encoding='utf-8'))
-sub('Vistas');code((P/'sql/04_vistas.sql').read_text(encoding='utf-8'))
-sub('DML reversible');code((P/'sql/06_dml.sql').read_text(encoding='utf-8'))
+p('DDL PostgreSQL ejecutado. postgresql/00_PROYECTO_COMPLETO.sql crea y carga la base de principio a fin. postgresql/generar_sql.py permite regenerarlo desde el histórico público mediante una transformación temporal; no requiere el XLSM privado.')
+code((P/'postgresql/01_esquema.sql').read_text(encoding='utf-8'))
+sub('Vistas');code((P/'postgresql/04_vistas.sql').read_text(encoding='utf-8'))
+sub('DML reversible');code((P/'postgresql/06_dml.sql').read_text(encoding='utf-8'))
 
 def footer(canvas,doc):
  w,hh=A4;canvas.setStrokeColor(colors.HexColor('#B7CBD2'));canvas.line(48,45,w-48,45)

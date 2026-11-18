@@ -1,0 +1,12 @@
+[
+  {
+    "hoja": "Base De Datos",
+    "tipo": "CODIGO_18_AMBIGUO",
+    "casos": 6
+  },
+  {
+    "hoja": "Base de datos de Sub codigos",
+    "tipo": "FILA_SIN_FECHA",
+    "casos": 1
+  }
+]

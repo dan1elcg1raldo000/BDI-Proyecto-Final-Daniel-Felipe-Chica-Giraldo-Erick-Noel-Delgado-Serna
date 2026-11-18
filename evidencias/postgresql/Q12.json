@@ -1,0 +1,34 @@
+[
+  {
+    "hoja": "Demostración",
+    "ambito": "DEMO",
+    "filas": 72,
+    "pacas": 6537.6,
+    "minutos_base": 34560.0,
+    "minutos_paro": 6228.0
+  },
+  {
+    "hoja": "Base De Datos",
+    "ambito": "PRINCIPAL",
+    "filas": 8208,
+    "pacas": 378778.0,
+    "minutos_base": 2283801.0,
+    "minutos_paro": 506979.1
+  },
+  {
+    "hoja": "Base de datos de Sub codigos",
+    "ambito": "AUXILIAR",
+    "filas": 1251,
+    "pacas": 0,
+    "minutos_base": 0,
+    "minutos_paro": 37211.0
+  },
+  {
+    "hoja": "Capturas nuevas",
+    "ambito": "PRINCIPAL",
+    "filas": 0,
+    "pacas": 0,
+    "minutos_base": 0,
+    "minutos_paro": 0
+  }
+]

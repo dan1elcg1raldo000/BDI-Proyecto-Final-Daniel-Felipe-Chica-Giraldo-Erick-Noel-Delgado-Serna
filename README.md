@@ -3,7 +3,9 @@
 **Bases de Datos I**
 **Daniel Felipe Chica Giraldo y Erick Noel Delgado Serna**
 
-Base relacional SQLite normalizada hasta 3FN, con migración del XLSM original,
+**Motor de entrega: PostgreSQL 18.6**, conforme al encabezado original de Classroom revisado el 18/11/2026. La versión SQLite previa se conserva como respaldo y transformación temporal.
+
+Base relacional PostgreSQL normalizada hasta 3FN, con migración del XLSM original,
 catálogos, indicadores de producción y análisis de causas de paro.
 
 ## Contenido
@@ -11,13 +13,14 @@ catálogos, indicadores de producción y análisis de causas de paro.
 | Ruta | Descripción |
 |---|---|
 | `BDI_ProyectoFinal_Chica_Delgado.pdf` | Informe del proyecto |
-| `base_proyecto.sqlite` | Base de datos poblada |
-| `sql/` | Esquema, catálogos, vistas, consultas, DML y constructor completo |
+| `postgresql/` | Esquema, carga completa, doce consultas y pruebas PostgreSQL |
+| `base_proyecto.sqlite` | Respaldo SQLite de conciliación, no motor de entrega |
+| `sql/` | Implementación SQLite previa de respaldo |
 | `datos/` | Histórico seudonimizado, catálogos y controles del Excel |
 | `scripts/` | Extracción, migración, reconstrucción y verificaciones |
 | `docs/` | Modelo, diccionario, informe editable y metodología de migración |
 | `evidencias/` | Resultados y controles de integridad y conciliación |
-| `presentacion/` | Presentación de resultados en PowerPoint y PDF |
+| `presentacion/` | Material auxiliar de la versión SQLite previa; no usar para la demostración PostgreSQL |
 | `.github/workflows/` | Verificación automática del proyecto |
 
 ## Modelo y datos
@@ -41,21 +44,20 @@ Las 498 incidencias de calidad de origen se conservan sin correcciones arbitrari
 
 ## Reproducción
 
-`sql/00_PROYECTO_COMPLETO.sql` crea y carga el proyecto sobre una base SQLite vacía.
-La alternativa con Python 3 usa su módulo estándar sqlite3:
+Ejecutar `postgresql/00_PROYECTO_COMPLETO.sql` sobre una base PostgreSQL vacía en DBeaver. El archivo incluye esquema, catálogos, histórico y vistas en una transacción. No sobrescribe objetos existentes.
 
-```powershell
-python scripts/reconstruir.py --salida base_nueva.sqlite
-python scripts/verificar.py base_nueva.sqlite
-python scripts/verificar_historico.py base_nueva.sqlite
-python scripts/verificar_carga.py base_nueva.sqlite
-python scripts/verificar_sql_completo.py
+Con psql instalado y variables de conexión PGHOST, PGPORT, PGUSER, PGDATABASE y PGPASSWORD/PGPASSFILE configuradas fuera de Git:
+
+```text
+python postgresql/reconstruir.py --crear-base
+python postgresql/verificar.py
 ```
 
-Las FK se activan por conexión con `PRAGMA foreign_keys=ON;`. El constructor no
-sobrescribe bases existentes. Las verificaciones incluyen 18 rechazos correctos,
-12 consultas y 118 controles de conciliación histórica. La extracción opcional
-del XLSM usa openpyxl solo para lectura y no ejecuta macros.
+Ver [instrucciones PostgreSQL](postgresql/README.md). La demostración usa `postgresql/07_sustentacion.sql` por bloques y `postgresql/05_consultas.sql` para Q01-Q12. PostgreSQL aplica las FK sin activar PRAGMA. Los tipos nativos incluyen DATE, NUMERIC, TIMESTAMPTZ y JSONB.
+
+En PostgreSQL se comprobaron 18 rechazos correctos, DML reversible y las doce consultas. Las 14 tablas y los doce resultados coinciden con la referencia conciliada a seis decimales; solo se excluye creado_en. Las evidencias están en `evidencias/postgresql/`. Los 118 controles previos contra el Excel se conservan en la evidencia histórica.
+
+La generación opcional de SQL (`python postgresql/generar_sql.py`) utiliza una transformación temporal SQLite con Python estándar. El SQL generado se carga directamente en PostgreSQL y no necesita el XLSM privado ni macros.
 
 ## Procedencia
 
@@ -74,7 +76,7 @@ El historial inicial revisado tiene dos commits de una cuenta. Las correcciones 
 - [Modelo visual](docs/MODELO.md) y [normalización paso a paso](docs/NORMALIZACION.md).
 - [Diccionario completo](docs/DICCIONARIO.md), con longitud o almacenamiento de cada columna.
 - [Flujos](docs/FLUJOS.md) y [guion oral](docs/GUION_ORAL.md).
-- `DEMOSTRAR.cmd` ejecuta una reconstrucción temporal con Python 3 y Q12 sin editar código. También puede usarse `python scripts/demo_sustentacion.py` en cualquier sistema con Python 3.
-- `sql/08_sustentacion.sql` contiene las doce consultas con parámetros ya sustituidos y los PRAGMA de verificación.
+- `DEMOSTRAR.cmd` y `scripts/demo_sustentacion.py` pertenecen a la demostración SQLite previa. Para sustentar la versión PostgreSQL se utilizan los archivos de `postgresql/`.
+- `postgresql/07_sustentacion.sql` reúne controles, Q01-Q12 y DML por bloques; no usa PRAGMA.
 
 La preparación y revisión técnica se realizaron con asistencia automatizada de Codex. Los resultados de las pruebas corresponden a ejecuciones reales; el guion no acredita un ensayo oral ya realizado.

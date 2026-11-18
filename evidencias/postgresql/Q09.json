@@ -1,0 +1,17 @@
+[
+  {
+    "agente": "Personal_de_mantenimiento",
+    "detalles": 166,
+    "minutos": 6327.0
+  },
+  {
+    "agente": "Sin agente registrado",
+    "detalles": 178,
+    "minutos": 3303.0
+  },
+  {
+    "agente": "Operarios",
+    "detalles": 58,
+    "minutos": 1477.0
+  }
+]
